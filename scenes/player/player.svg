@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 16.933333 16.933333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="player.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="px"
+     inkscape:zoom="7.9320556"
+     inkscape:cx="35.74105"
+     inkscape:cy="34.858555"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="2391"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <circle
+       style="fill:#000000;stroke-width:0.813544;fill-opacity:1"
+       id="path1"
+       cx="8.4666662"
+       cy="8.4666662"
+       r="8.4666662" />
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.762698"
+       id="circle2"
+       cx="8.4666662"
+       cy="8.4666662"
+       r="7.9375" />
+    <g
+       id="g3"
+       transform="translate(0.52498358,0.30345945)">
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke-width:0.534;stroke-dasharray:none"
+         id="path2"
+         cx="13.23335"
+         cy="5.7282038"
+         r="1.0583333" />
+      <circle
+         style="fill:#000000;fill-opacity:1;stroke-width:0.534;stroke-dasharray:none"
+         id="circle3"
+         cx="13.23335"
+         cy="10.59821"
+         r="1.0583333" />
+    </g>
+  </g>
+</svg>
