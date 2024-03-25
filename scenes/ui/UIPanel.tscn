@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://cow11y4t4rnws"]
+
+[ext_resource type="Script" path="res://scenes/ui/UIPanel.gd" id="1_akfxq"]
+[ext_resource type="Texture2D" uid="uid://dxi5lryfh4c5d" path="res://scenes/ui/close.svg" id="1_t8ik2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_se650"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="InputEventAction" id="InputEventAction_bva8o"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_aeefc"]
+events = [SubResource("InputEventAction_bva8o")]
+
+[node name="UIPanel" type="PanelContainer"]
+offset_right = 284.0
+offset_bottom = 62.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_se650")
+script = ExtResource("1_akfxq")
+
+[node name="PanelContent" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelHeader" type="HBoxContainer" parent="PanelContent"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 2
+
+[node name="Title" type="Label" parent="PanelContent/PanelHeader"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Untitled UIPanel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContent/PanelHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="Close" type="TextureButton" parent="PanelContent/PanelHeader/HBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "Close this window"
+mouse_default_cursor_shape = 2
+shortcut = SubResource("Shortcut_aeefc")
+texture_normal = ExtResource("1_t8ik2")
+
+[connection signal="pressed" from="PanelContent/PanelHeader/HBoxContainer/Close" to="." method="_on_close_pressed"]

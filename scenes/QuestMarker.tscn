@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://badmt1gtlarty"]
+
+[ext_resource type="Texture2D" uid="uid://cfd3oag4fxsi7" path="res://global/quest_marker.svg" id="1_2m3sk"]
+
+[sub_resource type="Animation" id="Animation_g43on"]
+resource_name = "quest_marker_float"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Triangle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Vector2(0, -300), Vector2(0, -350), Vector2(0, -300)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Target:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c7qhd"]
+_data = {
+"quest_marker_float": SubResource("Animation_g43on")
+}
+
+[node name="QuestMarker" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+
+[node name="Target" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.926051)
+z_index = 1
+texture = ExtResource("1_2m3sk")
+region_enabled = true
+region_rect = Rect2(0, 250, 200, 100)
+
+[node name="Triangle" type="Sprite2D" parent="."]
+z_index = 999
+position = Vector2(0, -303.697)
+texture = ExtResource("1_2m3sk")
+region_enabled = true
+region_rect = Rect2(0, 0, 200, 200)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_c7qhd")
+}
+autoplay = "quest_marker_float"
