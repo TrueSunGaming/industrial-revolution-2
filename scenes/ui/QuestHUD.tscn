@@ -1,0 +1,79 @@
+[gd_scene load_steps=12 format=3 uid="uid://ds0pbn17gbev2"]
+
+[ext_resource type="Shader" uid="uid://bl5tkhydy3hp2" path="res://global/hsva_modulate.tres" id="1_lgt56"]
+[ext_resource type="Texture2D" uid="uid://l8j2ojrqc6th" path="res://scenes/ui/quest_hud.svg" id="1_mflg4"]
+[ext_resource type="Script" path="res://scenes/ui/QuestHUD.gd" id="1_mra24"]
+[ext_resource type="FontFile" uid="uid://bjeub26kxvw6w" path="res://global/Roboto-Bold.ttf" id="2_fcivd"]
+[ext_resource type="Texture2D" uid="uid://c7f6n65rgpc4d" path="res://scenes/ui/quest_book.svg" id="4_js26b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q1tv4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10ae2"]
+shader = ExtResource("1_lgt56")
+shader_parameter/modulate = Vector4(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mmi1y"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+texture = ExtResource("1_mflg4")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3f0p3"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_2e18t"]
+action = &"quests"
+
+[sub_resource type="Shortcut" id="Shortcut_no3d3"]
+events = [SubResource("InputEventAction_2e18t")]
+
+[node name="QuestHUD" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_q1tv4")
+script = ExtResource("1_mra24")
+
+[node name="Content" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_10ae2")
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_mmi1y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="QuestBook" type="TextureRect" parent="Content/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_js26b")
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/HBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Content/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_fcivd")
+theme_override_font_sizes/font_size = 25
+text = "No Active Quest"
+
+[node name="Description" type="RichTextLabel" parent="Content/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Awaiting quest..."
+fit_content = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+tooltip_text = "Open Quests Menu"
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3f0p3")
+shortcut = SubResource("Shortcut_no3d3")
+flat = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

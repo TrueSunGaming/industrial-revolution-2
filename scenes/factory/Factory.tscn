@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dad0j2627f8ti"]
+[gd_scene load_steps=8 format=3 uid="uid://dad0j2627f8ti"]
 
 [ext_resource type="PackedScene" uid="uid://cy5ii5asdf0sd" path="res://scenes/player/Player.tscn" id="1_fuiu3"]
 [ext_resource type="Texture2D" uid="uid://cudg5hxs6gg0t" path="res://global/metal_tile.svg" id="2_whtw3"]
@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://bs5um5w30uluu" path="res://global/tileset.tres" id="4_i7nyc"]
 [ext_resource type="PackedScene" uid="uid://cp2b6nwd32ctl" path="res://scenes/ui/UI.tscn" id="5_ysv7l"]
 [ext_resource type="PackedScene" uid="uid://badmt1gtlarty" path="res://scenes/QuestMarker.tscn" id="6_anhpn"]
+[ext_resource type="PackedScene" uid="uid://c8t085th8fss0" path="res://scenes/portal.tscn" id="7_lmbkr"]
 
 [node name="Factory" type="Node2D"]
 
@@ -14,6 +15,7 @@ texture_repeat = 2
 texture = ExtResource("2_whtw3")
 region_enabled = true
 script = ExtResource("3_wbm2x")
+tile_offset = Vector2(32, 32)
 
 [node name="Player" parent="." instance=ExtResource("1_fuiu3")]
 movement_speed = 500
@@ -28,4 +30,7 @@ format = 2
 [node name="UI" parent="." instance=ExtResource("5_ysv7l")]
 
 [node name="QuestMarker" parent="." instance=ExtResource("6_anhpn")]
-position = Vector2(32, 32)
+position = Vector2(0, -320)
+
+[node name="Portal" parent="." instance=ExtResource("7_lmbkr")]
+position = Vector2(0, -320)

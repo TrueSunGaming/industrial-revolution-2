@@ -2,6 +2,7 @@ class_name ProceduralFloor extends Sprite2D
 
 @export var tile_size := Vector2(64, 64)
 @export var parallax_divisor: float = 1
+@export var tile_offset := Vector2()
 
 func _ready() -> void:
 	region_enabled = true
@@ -19,4 +20,4 @@ func _process(delta: float) -> void:
 	
 	global_position = cam_pos
 	region_rect.size = get_viewport_rect().size / next_frame_zoom / scale
-	region_rect.position = cam_pos / scale / parallax_divisor - region_rect.size / 2
+	region_rect.position = (cam_pos + tile_offset) / scale / parallax_divisor - region_rect.size / 2

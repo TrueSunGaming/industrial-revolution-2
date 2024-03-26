@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cp2b6nwd32ctl"]
+[gd_scene load_steps=4 format=3 uid="uid://cp2b6nwd32ctl"]
 
 [ext_resource type="PackedScene" uid="uid://2cvxab220oy8" path="res://scenes/ui/HUD.tscn" id="1_6tj4x"]
 [ext_resource type="Script" path="res://scenes/ui/UI.gd" id="1_htfjb"]
+[ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="3_35dqi"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_htfjb")
@@ -17,3 +18,18 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="UIPanel" parent="Panels" instance=ExtResource("3_35dqi")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.5
+offset_top = -31.0
+offset_right = 162.5
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+title = "lorem ipsum dolor sit amet"

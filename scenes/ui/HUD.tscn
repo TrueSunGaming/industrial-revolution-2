@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://2cvxab220oy8"]
+[gd_scene load_steps=3 format=3 uid="uid://2cvxab220oy8"]
 
 [ext_resource type="Script" path="res://scenes/ui/HUD.gd" id="1_0ppp0"]
+[ext_resource type="PackedScene" uid="uid://ds0pbn17gbev2" path="res://scenes/ui/QuestHUD.tscn" id="2_wpqbp"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -10,3 +11,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0ppp0")
+
+[node name="QuestHUD" parent="." instance=ExtResource("2_wpqbp")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+grow_horizontal = 2
