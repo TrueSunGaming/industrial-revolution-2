@@ -5,9 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="3_35dqi"]
 
 [node name="UI" type="CanvasLayer"]
+layer = 2
 script = ExtResource("1_htfjb")
 
 [node name="HUD" parent="." instance=ExtResource("1_6tj4x")]
+mouse_filter = 2
 
 [node name="Panels" type="Control" parent="."]
 layout_mode = 3
@@ -18,6 +20,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="UIPanel" parent="Panels" instance=ExtResource("3_35dqi")]
 layout_mode = 1

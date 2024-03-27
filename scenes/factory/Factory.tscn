@@ -34,3 +34,4 @@ position = Vector2(0, -320)
 
 [node name="Portal" parent="." instance=ExtResource("7_lmbkr")]
 position = Vector2(0, -320)
+destination_name = "Hub"

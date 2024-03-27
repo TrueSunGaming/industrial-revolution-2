@@ -1,20 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cow11y4t4rnws"]
 
 [ext_resource type="Script" path="res://scenes/ui/UIPanel.gd" id="1_akfxq"]
+[ext_resource type="StyleBox" uid="uid://da0avyyhi6omb" path="res://scenes/ui/UIPanel_stylebox.tres" id="1_km1k3"]
 [ext_resource type="Texture2D" uid="uid://dxi5lryfh4c5d" path="res://scenes/ui/close.svg" id="1_t8ik2"]
 [ext_resource type="FontFile" uid="uid://bjeub26kxvw6w" path="res://global/Roboto-Bold.ttf" id="2_rb7e3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_se650"]
-content_margin_left = 10.0
-content_margin_top = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 10.0
-bg_color = Color(0.2, 0.2, 0.2, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 5
-border_color = Color(0.14902, 0.14902, 0.14902, 1)
 
 [sub_resource type="InputEventAction" id="InputEventAction_bva8o"]
 action = &"ui_cancel"
@@ -25,7 +14,7 @@ events = [SubResource("InputEventAction_bva8o")]
 [node name="UIPanel" type="PanelContainer"]
 offset_right = 284.0
 offset_bottom = 62.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_se650")
+theme_override_styles/panel = ExtResource("1_km1k3")
 script = ExtResource("1_akfxq")
 
 [node name="PanelContent" type="VBoxContainer" parent="."]

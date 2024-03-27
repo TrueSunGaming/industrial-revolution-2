@@ -1,30 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8t085th8fss0"]
+[gd_scene load_steps=8 format=3 uid="uid://c8t085th8fss0"]
 
+[ext_resource type="Script" path="res://scenes/Portal.gd" id="1_7tuto"]
 [ext_resource type="Texture2D" uid="uid://nrbrmdsh0d0r" path="res://scenes/portal.svg" id="1_n878g"]
+[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/Roboto-Regular.ttf" id="3_cmhf5"]
+[ext_resource type="FontFile" uid="uid://bjeub26kxvw6w" path="res://global/Roboto-Bold.ttf" id="4_rgomc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oq7it"]
-size = Vector2(480, 480)
+[sub_resource type="Curve" id="Curve_f7q1i"]
+_data = [Vector2(0, 0), 0.0, 5.65195, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.65195, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a141d"]
-particle_flag_align_y = true
+[sub_resource type="CurveTexture" id="CurveTexture_uo00e"]
+curve = SubResource("Curve_f7q1i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sty8h"]
 particle_flag_disable_z = true
-emission_shape = 2
-emission_sphere_radius = 115.0
-direction = Vector3(0, 0, 0)
-spread = 0.0
-orbit_velocity_min = 0.1
-orbit_velocity_max = 0.2
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 110.0
+emission_ring_inner_radius = 0.0
 gravity = Vector3(0, 0, 0)
+scale_max = 3.0
+color = Color(1, 0, 1, 1)
+alpha_curve = SubResource("CurveTexture_uo00e")
 
 [node name="Portal" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("1_7tuto")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-112, -160, -144, -144, -160, -112, -160, 112, -144, 144, -112, 160, 112, 160, 144, 144, 160, 112, 160, -112, 144, -144, 112, -160)
-
-[node name="InteractionRange" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionRange"]
-shape = SubResource("RectangleShape2D_oq7it")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
@@ -32,6 +38,25 @@ texture = ExtResource("1_n878g")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 amount = 300
-process_material = SubResource("ParticleProcessMaterial_a141d")
-lifetime = 10.0
-preprocess = 10.0
+process_material = SubResource("ParticleProcessMaterial_sty8h")
+preprocess = 1.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -160.0
+offset_top = -34.0
+offset_right = 160.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_cmhf5")
+theme_override_fonts/bold_font = ExtResource("4_rgomc")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+bbcode_enabled = true
+text = "PLACEHOLDER"
+fit_content = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
