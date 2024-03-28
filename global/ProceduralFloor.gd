@@ -11,7 +11,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	var cam: Camera2D = get_viewport().get_camera_2d()
 	
-	if (not cam): return print("No camera found for floor rendering")
+	if (not cam): return printerr("No camera found for floor rendering")
 	
 	var next_frame_zoom := cam.zoom
 	if (refs.player and cam == refs.player.get_node("Camera2D")): next_frame_zoom = refs.player.next_frame_zoom(delta)

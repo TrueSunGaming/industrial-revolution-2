@@ -6,5 +6,5 @@ var panel_visible: bool:
 func _ready() -> void:
 	refs.ui = self
 
-func show_panel(panel: Control) -> void:
+func show_panel(panel: UIPanel) -> void:
 	$Panels.add_child(panel)

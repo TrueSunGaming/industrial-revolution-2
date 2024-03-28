@@ -27,6 +27,8 @@ func _input(event: InputEvent) -> void:
 	
 	if Input.is_action_pressed("zoomout"):
 		goal_zoom /= zoom_ratio
+	
+	goal_zoom = clampf(goal_zoom, 0.33, 2)
 
 func _ready() -> void:
 	refs.player = self
