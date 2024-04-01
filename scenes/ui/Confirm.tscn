@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://he4d00u48dqa"]
+
+[ext_resource type="PackedScene" uid="uid://bvn4fomivl8v1" path="res://scenes/ui/Alert.tscn" id="1_i087j"]
+[ext_resource type="Script" path="res://scenes/ui/Confirm.gd" id="2_id7mw"]
+[ext_resource type="StyleBox" uid="uid://da0avyyhi6omb" path="res://scenes/ui/UIPanel_stylebox.tres" id="3_0coy4"]
+[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/Roboto-Regular.ttf" id="3_x7xd3"]
+
+[node name="UIPanel" instance=ExtResource("1_i087j")]
+script = ExtResource("2_id7mw")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContent" index="2"]
+layout_mode = 2
+
+[node name="Okay" type="Button" parent="PanelContent/HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_x7xd3")
+theme_override_styles/normal = ExtResource("3_0coy4")
+theme_override_styles/hover = ExtResource("3_0coy4")
+theme_override_styles/pressed = ExtResource("3_0coy4")
+text = "Okay"
+
+[node name="Cancel" type="Button" parent="PanelContent/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_x7xd3")
+theme_override_styles/normal = ExtResource("3_0coy4")
+theme_override_styles/hover = ExtResource("3_0coy4")
+theme_override_styles/pressed = ExtResource("3_0coy4")
+text = "Cancel"
+
+[connection signal="pressed" from="PanelContent/HBoxContainer/Okay" to="." method="_on_okay_pressed"]
+[connection signal="pressed" from="PanelContent/HBoxContainer/Cancel" to="." method="_on_cancel_pressed"]

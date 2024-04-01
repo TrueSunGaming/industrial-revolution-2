@@ -1,37 +1,30 @@
-[gd_scene load_steps=8 format=3 uid="uid://dad0j2627f8ti"]
+[gd_scene load_steps=9 format=3 uid="uid://dad0j2627f8ti"]
 
-[ext_resource type="PackedScene" uid="uid://cy5ii5asdf0sd" path="res://scenes/player/Player.tscn" id="1_fuiu3"]
+[ext_resource type="Script" path="res://scenes/factory/Factory.gd" id="1_x1roo"]
 [ext_resource type="Texture2D" uid="uid://cudg5hxs6gg0t" path="res://global/metal_tile.svg" id="2_whtw3"]
 [ext_resource type="Script" path="res://global/ProceduralFloor.gd" id="3_wbm2x"]
-[ext_resource type="TileSet" uid="uid://bs5um5w30uluu" path="res://global/tileset.tres" id="4_i7nyc"]
-[ext_resource type="PackedScene" uid="uid://cp2b6nwd32ctl" path="res://scenes/ui/UI.tscn" id="5_ysv7l"]
-[ext_resource type="PackedScene" uid="uid://badmt1gtlarty" path="res://scenes/QuestMarker.tscn" id="6_anhpn"]
-[ext_resource type="PackedScene" uid="uid://c8t085th8fss0" path="res://scenes/portal.tscn" id="7_lmbkr"]
+[ext_resource type="Script" path="res://scenes/factory/WorldContainer.gd" id="6_54qrb"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileWorld.gd" id="7_d3m5u"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityInstance.gd" id="8_4uyo2"]
+
+[sub_resource type="Resource" id="Resource_0nnxk"]
+script = ExtResource("8_4uyo2")
+data_id = "portal"
+position = Vector2(-2, -2)
+
+[sub_resource type="Resource" id="Resource_8a7mi"]
+script = ExtResource("7_d3m5u")
+tiles = Array[ExtResource("8_4uyo2")]([SubResource("Resource_0nnxk")])
 
 [node name="Factory" type="Node2D"]
+script = ExtResource("1_x1roo")
 
 [node name="ProceduralFloor" type="Sprite2D" parent="."]
-texture_repeat = 2
 texture = ExtResource("2_whtw3")
-region_enabled = true
 script = ExtResource("3_wbm2x")
 tile_offset = Vector2(32, 32)
 
-[node name="Player" parent="." instance=ExtResource("1_fuiu3")]
-movement_speed = 500
-rotation_smoothing = 0.2
-zoom_ratio = 1.15
-zoom_smoothing = 0.2
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource("4_i7nyc")
-format = 2
-
-[node name="UI" parent="." instance=ExtResource("5_ysv7l")]
-
-[node name="QuestMarker" parent="." instance=ExtResource("6_anhpn")]
-position = Vector2(0, -320)
-
-[node name="Portal" parent="." instance=ExtResource("7_lmbkr")]
-position = Vector2(0, -320)
-destination_name = "Hub"
+[node name="WorldContainer" type="Node2D" parent="."]
+script = ExtResource("6_54qrb")
+world = SubResource("Resource_8a7mi")
+tick_rate = 60

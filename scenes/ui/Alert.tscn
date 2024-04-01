@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvn4fomivl8v1"]
+
+[ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="1_1xbhm"]
+[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/Roboto-Regular.ttf" id="2_1pptk"]
+
+[node name="UIPanel" instance=ExtResource("1_1xbhm")]
+
+[node name="Label" type="Label" parent="PanelContent" index="1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_1pptk")

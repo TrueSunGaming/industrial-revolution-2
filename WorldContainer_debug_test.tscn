@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scenes/factory/WorldContainer.gd" id="1_eir55"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileWorld.gd" id="2_8dfmu"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityInstance.gd" id="3_23aui"]
+[ext_resource type="PackedScene" path="res://scenes/portal.tscn" id="4_wh0k1"]
+
+[sub_resource type="Resource" id="Resource_0nnxk"]
+script = ExtResource("3_23aui")
+data_id = "portal"
+position = Vector2(-2, -2)
+
+[sub_resource type="Resource" id="Resource_8a7mi"]
+script = ExtResource("2_8dfmu")
+tiles = Array[ExtResource("3_23aui")]([SubResource("Resource_0nnxk")])
+
+[node name="WorldContainer" type="Node2D"]
+script = ExtResource("1_eir55")
+world = SubResource("Resource_8a7mi")
+tick_rate = 60
+
+[node name="Portal" parent="." instance=ExtResource("4_wh0k1")]
+position = Vector2(-128, -128)
+to_factory = false
+destination = null
+destination_name = ""

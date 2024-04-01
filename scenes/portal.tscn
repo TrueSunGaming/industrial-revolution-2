@@ -29,31 +29,33 @@ alpha_curve = SubResource("CurveTexture_uo00e")
 input_pickable = true
 script = ExtResource("1_7tuto")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-112, -160, -144, -144, -160, -112, -160, 112, -144, 144, -112, 160, 112, 160, 144, 144, 160, 112, 160, -112, 144, -144, 112, -160)
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_n878g")
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(160, 160)
+polygon = PackedVector2Array(-112, -160, -144, -144, -160, -112, -160, 112, -144, 144, -112, 160, 112, 160, 144, 144, 160, 112, 160, -112, 144, -144, 112, -160)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(160, 160)
 amount = 300
 process_material = SubResource("ParticleProcessMaterial_sty8h")
 preprocess = 1.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 z_index = 1000
-anchors_preset = -1
-offset_right = 640.0
-offset_bottom = 236.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 160.0
+offset_top = 160.0
+offset_right = 800.0
+offset_bottom = 396.0
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_cmhf5")
 theme_override_fonts/bold_font = ExtResource("4_rgomc")
-theme_override_font_sizes/normal_font_size = 60
-theme_override_font_sizes/bold_font_size = 60
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
 bbcode_enabled = true
 text = "PLACEHOLDER"
 fit_content = true

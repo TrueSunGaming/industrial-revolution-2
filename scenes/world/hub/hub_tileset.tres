@@ -1,0 +1,13 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bjsqy4rvuvnxb"]
+
+[ext_resource type="Texture2D" uid="uid://c08qr7d6o13a7" path="res://global/metal_tile_3d.svg" id="1_cb85p"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hdlth"]
+texture = ExtResource("1_cb85p")
+texture_region_size = Vector2i(64, 96)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -16)
+
+[resource]
+tile_size = Vector2i(64, 64)
+sources/1 = SubResource("TileSetAtlasSource_hdlth")

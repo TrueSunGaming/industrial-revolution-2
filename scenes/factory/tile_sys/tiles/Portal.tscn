@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx3c0pnmu1n7i"]
+
+[ext_resource type="PackedScene" uid="uid://c8t085th8fss0" path="res://scenes/portal.tscn" id="1_rramx"]
+[ext_resource type="PackedScene" uid="uid://cad7nbn12k0bi" path="res://scenes/world/hub/hub.tscn" id="2_qjbx7"]
+
+[node name="PortalEntity" type="Node2D"]
+
+[node name="Portal" parent="." instance=ExtResource("1_rramx")]
+destination = ExtResource("2_qjbx7")
+destination_name = "Hub"

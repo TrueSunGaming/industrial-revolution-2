@@ -6,7 +6,7 @@ class_name ProceduralFloor extends Sprite2D
 
 func _ready() -> void:
 	region_enabled = true
-	scale = tile_size / texture.get_size()
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 
 func _process(delta: float) -> void:
 	var cam: Camera2D = get_viewport().get_camera_2d()
@@ -18,6 +18,12 @@ func _process(delta: float) -> void:
 	
 	var cam_pos := cam.get_screen_center_position()
 	
+	var parallax_scaling := Vector2(
+		next_frame_zoom.x ** (1 - 1 / parallax_divisor),
+		next_frame_zoom.y ** (1 - 1 / parallax_divisor)
+	)
+	
+	scale = tile_size / texture.get_size() / parallax_scaling
 	global_position = cam_pos
 	region_rect.size = get_viewport_rect().size / next_frame_zoom / scale
-	region_rect.position = (cam_pos + tile_offset) / scale / parallax_divisor - region_rect.size / 2
+	region_rect.position = (cam_pos + tile_offset) / scale / parallax_divisor / parallax_scaling - region_rect.size / 2

@@ -1,10 +1,9 @@
 extends Node
 
-var ui_panel_scene: PackedScene = preload("res://scenes/ui/UIPanel.tscn")
-var ui_panel_style: StyleBoxFlat = preload("res://scenes/ui/UIPanel_stylebox.tres")
-var roboto: Font = preload("res://global/Roboto-Regular.ttf")
-
-class ConfirmResult extends Object:
+const alert_scene: PackedScene = preload("res://scenes/ui/Alert.tscn")
+const confirm_scene: PackedScene = preload("res://scenes/ui/Confirm.tscn")
+ 
+class ConfirmResult extends RefCounted:
 	signal closed(result)
 	
 	func _init(close: BaseButton, cancel: BaseButton, okay: BaseButton) -> void:
@@ -23,49 +22,59 @@ func show_panel(panel: UIPanel) -> void:
 	refs.ui.show_panel(panel)
 
 func alert(title: String, msg: String, wait := false) -> void:
-	var panel: UIPanel = ui_panel_scene.instantiate()
+	var panel: UIPanel = alert_scene.instantiate()
 	
-	var text := Label.new()
-	text.text = msg
-	text.add_theme_font_override("font", roboto)
-	
+	panel.get_node("PanelContent/Label").text = msg
 	panel.title = title
-	panel.get_node("PanelContent").add_child(text)
 	
 	show_panel(panel)
 	
-	if wait: await panel.get_node("PanelContent/PanelHeader/HBoxContainer/Close").pressed
+	if wait: await panel.closed
 
 func confirm(title: String, msg: String) -> bool:
-	var panel: UIPanel = ui_panel_scene.instantiate()
+	var panel: Confirm = confirm_scene.instantiate()
 	
-	var text := Label.new()
-	text.text = msg
-	text.add_theme_font_override("font", roboto)
-	
-	var hbox := HBoxContainer.new()
-	
-	var ok := Button.new()
-	ok.text = "Okay"
-	
-	var cancel := Button.new()
-	cancel.text = "Cancel"
-	
-	for i: Button in [ok, cancel]:
-		for j in ["normal", "hover", "pressed"]: i.add_theme_stylebox_override(j, ui_panel_style)
-		i.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		
-		i.connect("pressed", func():
-			panel.queue_free()
-		)
-		
-		hbox.add_child(i)
+	panel.get_node("PanelContent/Label").text = msg
 	
 	panel.title = title
 	
-	panel.get_node("PanelContent").add_child(text)
-	panel.get_node("PanelContent").add_child(hbox)
-	
 	show_panel(panel)
 	
-	return await ConfirmResult.new(panel.get_node("PanelContent/PanelHeader/HBoxContainer/Close"), cancel, ok).closed
+	return await panel.closed
+
+func load_world(scene: PackedScene) -> void:
+	if not refs.main: return printerr("No main reference to load world")
+	
+	var instance: Node2D = scene.instantiate()
+	instance.name = "World"
+	
+	unload_world()
+	refs.main.get_node("Environment").add_child(instance)
+
+func unload_world(to_factory := false) -> void:
+	if not refs.main: return printerr("No main reference to unload world")
+	
+	var old_world: Node2D = refs.main.get_node_or_null("Environment/World")
+	if old_world: old_world.queue_free()
+	
+	refs.factory.disabled = not to_factory
+	
+	reset_player_state(to_factory)
+
+func reset_player_state(to_factory := false) -> void:
+	if refs.player: refs.player.global_position = Vector2(0, 320) if to_factory else Vector2()
+
+func get_all_children(node: Node) -> Array[Node]:
+	var res: Array[Node] = []
+	
+	for i in node.get_children():
+		res.push_back(i)
+		res.append_array(get_all_children(i))
+	
+	return res
+
+func set_background_sound(sound: AudioStream) -> void:
+	refs.main.get_node("AudioStreamPlayer").stream = sound
+
+func set_background_sound_bus(bus: String) -> void:
+	refs.main.get_node("AudioStreamPlayer").bus = bus

@@ -8,12 +8,13 @@ class_name Player extends CharacterBody2D
 @onready var goal_zoom := float($Camera2D.zoom.x)
 
 func next_frame_zoom(delta: float) -> Vector2:
-	var res := lerpf($Camera2D.zoom.x, goal_zoom, 1 - (1 - zoom_smoothing) ** (delta * 60))
+	var res := lerpf($Camera2D.zoom.x, goal_zoom, 1 - zoom_smoothing ** (delta * 60))
 	
 	return Vector2(res, res)
 
 func _physics_process(delta: float) -> void:
 	velocity = Input.get_vector("left", "right", "up", "down") * movement_speed
+	
 	move_and_slide()
 
 func _process(delta: float) -> void:
@@ -32,3 +33,4 @@ func _input(event: InputEvent) -> void:
 
 func _ready() -> void:
 	refs.player = self
+	global.reset_player_state(true)
