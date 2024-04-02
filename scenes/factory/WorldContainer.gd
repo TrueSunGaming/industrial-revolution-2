@@ -22,10 +22,17 @@ func _process(delta: float) -> void:
 	for i in world.render_buffer: render_tile(i)
 	world.render_buffer = []
 
+func should_free_tile_node(instance: TileEntityInstance) -> bool:
+	if not instance.node_ref: return false
+	if instance.world == world: return false
+	if instance.world == null: return true
+	
+	return instance.node_ref.get_parent() == self
+
 func render_tile(id: int) -> void:
 	var instance := TileEntityInstance.get_tile(id)
 	
-	if instance.world != world and instance.node_ref: return instance.node_ref.queue_free()
+	if should_free_tile_node(instance): return instance.node_ref.queue_free()
 	
 	var data := TileEntityData.get_tile_data(instance.data_id)
 	instance.node_ref = data.scene.instantiate()
