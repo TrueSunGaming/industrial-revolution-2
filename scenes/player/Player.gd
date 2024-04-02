@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody2D
 
+const SPAWN_POS := Vector2(0, 320)
+
 @export var movement_speed: int
 @export_range(0, 1) var rotation_smoothing: float
 @export var zoom_ratio: float
@@ -33,4 +35,4 @@ func _input(event: InputEvent) -> void:
 
 func _ready() -> void:
 	refs.player = self
-	global.reset_player_state(true)
+	global.reset_player_state(SPAWN_POS)

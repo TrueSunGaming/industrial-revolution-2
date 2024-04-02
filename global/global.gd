@@ -42,27 +42,40 @@ func confirm(title: String, msg: String) -> bool:
 	
 	return await panel.closed
 
-func load_world(scene: PackedScene) -> void:
+func load_world(scene: PackedScene, destination: String, using_portal := false) -> void:
 	if not refs.main: return printerr("No main reference to load world")
 	
 	var instance: Node2D = scene.instantiate()
 	instance.name = "World"
 	
-	unload_world()
+	unload_world(destination, using_portal)
 	refs.main.get_node("Environment").add_child(instance)
 
-func unload_world(to_factory := false) -> void:
+func unload_world(destination: String, using_portal := false) -> void:
 	if not refs.main: return printerr("No main reference to unload world")
 	
 	var old_world: Node2D = refs.main.get_node_or_null("Environment/World")
 	if old_world: old_world.queue_free()
 	
-	refs.factory.disabled = not to_factory
+	refs.factory.disabled = destination != "Factory"
 	
-	reset_player_state(to_factory)
+	match destination:
+		"Factory":
+			if not using_portal or not refs.player: return reset_player_state()
+			reset_player_state(refs.player.global_position)
+		
+		"Hub":
+			if not using_portal or not refs.player: return reset_player_state()
+			
+			var portal_pos := Portal.last_used_portal_position
+			
+			if refs.player.global_position.distance_squared_to(portal_pos) <= 541696:
+				return reset_player_state(refs.player.global_position)
+			
+			reset_player_state(portal_pos + portal_pos.direction_to(refs.player.global_position) * 500)
 
-func reset_player_state(to_factory := false) -> void:
-	if refs.player: refs.player.global_position = Vector2(0, 320) if to_factory else Vector2()
+func reset_player_state(pos := Vector2()) -> void:
+	if refs.player: refs.player.global_position = pos
 
 func get_all_children(node: Node) -> Array[Node]:
 	var res: Array[Node] = []
