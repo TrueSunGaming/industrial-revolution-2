@@ -9,6 +9,7 @@ static var list := {}
 @export var name: String
 @export var description: String
 @export var placement_size := Vector2(1, 1)
+@export_range(0, 360) var rotation_step: float
 @export var scene: PackedScene
 
 static func get_tile_data(id: String) -> TileEntityData:

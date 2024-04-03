@@ -8,7 +8,24 @@ static var next_id := 0
 static var list := {}
 
 @export var data_id: String
-@export var position: Vector2
+@export var position: Vector2:
+	set(val):
+		position = val
+		update_position()
+
+@export var rotation: float:
+	set(val):
+		rotation = global.clamp_deg(val)
+		if node_ref: node_ref.global_rotation_degrees = rotation
+		update_position()
+
+var next_rotation: float:
+	get:
+		return global.add_deg(rotation, tile_data.rotation_step)
+
+var prev_rotation: float:
+	get:
+		return global.sub_deg(rotation, tile_data.rotation_step)
 
 var node_ref: Node2D
 var id: int
@@ -39,6 +56,12 @@ var index: int:
 		
 		return world.tiles.find(func (v): return v.id == id)
 
+var render_position: Vector2:
+	get:
+		if not world: return Vector2()
+		
+		return world.tile_to_world(position - global.center_rotation_displacement(placement_rect, rotation))
+
 func _init() -> void:
 	id = next_id
 	next_id += 1
@@ -58,3 +81,6 @@ func remove_from_world() -> void:
 
 func relay_tick(delta: float) -> void:
 	world_tick.emit(delta)
+
+func update_position() -> void:
+	if node_ref: node_ref.position = render_position

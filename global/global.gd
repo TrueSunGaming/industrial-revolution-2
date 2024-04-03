@@ -91,3 +91,15 @@ func set_background_sound(sound: AudioStream) -> void:
 
 func set_background_sound_bus(bus: String) -> void:
 	refs.main.get_node("AudioStreamPlayer").bus = bus
+
+func clamp_deg(val: float) -> float:
+	return fmod(val, 360) if val >= 0 else 360 + fmod(val, 360)
+
+func add_deg(a: float, b: float) -> float:
+	return clamp_deg(a + b)
+
+func sub_deg(a: float, b: float) -> float:
+	return clamp_deg(a - b)
+
+func center_rotation_displacement(rect: Rect2, deg: float) -> Vector2:
+	return (rect.size.rotated(deg_to_rad(deg)) - rect.size) / 2

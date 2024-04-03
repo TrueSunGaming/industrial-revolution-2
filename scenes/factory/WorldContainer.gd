@@ -33,9 +33,11 @@ func render_tile(id: int) -> void:
 	var instance := TileEntityInstance.get_tile(id)
 	
 	if should_free_tile_node(instance): return instance.node_ref.queue_free()
+	if instance.node_ref: return
 	
 	var data := TileEntityData.get_tile_data(instance.data_id)
 	instance.node_ref = data.scene.instantiate()
-	instance.node_ref.position = instance.position * Vector2(64, 64) - Vector2(32, 32)
+	instance.node_ref.position = instance.render_position
+	instance.node_ref.rotation_degrees = instance.rotation
 	
 	add_child(instance.node_ref)

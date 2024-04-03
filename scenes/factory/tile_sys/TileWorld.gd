@@ -5,12 +5,15 @@ signal tile_removed(id)
 signal tile_render(id)
 signal tick(delta)
 
+@export var tile_size: Vector2
+
 @export var tiles: Array[TileEntityInstance]:
 	set(val):
 		for i in range(val.size()):
 			if tiles.any(func (v: TileEntityInstance): return v.id == val[i].id): continue
 			
 			tile_placed.emit(val[i].id, i)
+			val[i].world = self
 		
 		tiles = val
 
@@ -50,3 +53,6 @@ func remove_tile_at(tile: Vector2i) -> TileEntityInstance:
 
 func process_tick(delta: float) -> void:
 	tick.emit(delta)
+
+func tile_to_world(tile: Vector2) -> Vector2:
+	return tile * tile_size - tile_size / 2

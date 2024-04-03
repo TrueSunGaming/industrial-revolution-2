@@ -11,9 +11,11 @@
 script = ExtResource("8_4uyo2")
 data_id = "portal"
 position = Vector2(-2, -2)
+rotation = 0.0
 
 [sub_resource type="Resource" id="Resource_8a7mi"]
 script = ExtResource("7_d3m5u")
+tile_size = Vector2(64, 64)
 tiles = Array[ExtResource("8_4uyo2")]([SubResource("Resource_0nnxk")])
 
 [node name="Factory" type="Node2D"]
