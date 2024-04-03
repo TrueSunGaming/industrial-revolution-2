@@ -102,4 +102,39 @@ func sub_deg(a: float, b: float) -> float:
 	return clamp_deg(a - b)
 
 func center_rotation_displacement(rect: Rect2, deg: float) -> Vector2:
-	return (rect.size.rotated(deg_to_rad(deg)) - rect.size) / 2
+	return rect.get_center().rotated(deg_to_rad(deg)) - rect.get_center()
+
+func rotate_around(point: Vector2, center: Vector2, rad: float) -> Vector2:
+	return center + (point - center).rotated(rad)
+
+func rotated_bounding_box(rect: Rect2, deg: float) -> Rect2:
+	var points := [
+		rect.position,
+		rect.position + Vector2(rect.size.x, 0),
+		rect.position + Vector2(0, rect.size.y),
+		rect.position + rect.size
+	]
+	
+	var rotated := points.map(func (v: Vector2): return rotate_around(v, rect.get_center(), deg_to_rad(deg)))
+	var rotated_x := rotated.map(func (v: Vector2): return v.x)
+	var rotated_y := rotated.map(func (v: Vector2): return v.y)
+	
+	var top_left := Vector2(rotated_x.min(), rotated_y.min())
+	var bottom_right := Vector2(rotated_x.max(), rotated_y.max())
+	
+	return Rect2(top_left, bottom_right - top_left)
+
+func set_hover_indicator_id(id: int) -> void:
+	if not refs.hover_indicator: return
+	
+	refs.hover_indicator.instance_id = id
+
+func set_hover_indicator_rect(rect: Rect2) -> void:
+	if not refs.hover_indicator: return
+	
+	refs.hover_indicator.rect = rect
+
+func show_hover_indicator(visible := true) -> void:
+	if not refs.hover_indicator: return
+	
+	refs.hover_indicator.visible = visible

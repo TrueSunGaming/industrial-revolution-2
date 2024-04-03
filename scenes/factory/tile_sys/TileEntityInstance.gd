@@ -62,6 +62,17 @@ var render_position: Vector2:
 		
 		return world.tile_to_world(position - global.center_rotation_displacement(placement_rect, rotation))
 
+var render_rect: Rect2:
+	get:
+		if not world: return Rect2()
+		
+		var rect := global.rotated_bounding_box(placement_rect, rotation)
+		
+		return Rect2(
+			world.tile_to_world(rect.position),
+			rect.size * world.tile_size
+		)
+
 func _init() -> void:
 	id = next_id
 	next_id += 1
