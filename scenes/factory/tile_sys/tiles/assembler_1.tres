@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TileEntityData" load_steps=3 format=3 uid="uid://c42sr274450mw"]
+
+[ext_resource type="PackedScene" uid="uid://bpyj0xe16iukk" path="res://scenes/factory/tile_sys/tiles/Assembler1.tscn" id="1_ggbn3"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityData.gd" id="1_utrde"]
+
+[resource]
+script = ExtResource("1_utrde")
+id = "assembler_1"
+name = "Assembling Machine I"
+description = "TBA"
+placement_size = Vector2(3, 3)
+rotation_step = 90.0
+scene = ExtResource("1_ggbn3")
+tags = Array[String](["3x3", "machine", "assembler", "tier1"])

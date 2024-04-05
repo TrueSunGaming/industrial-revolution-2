@@ -21,6 +21,7 @@ var needs_simplify: bool:
 		var found: Array[String] = []
 		
 		for i in items:
+			if i.count == 0: return true
 			if found.has(i.item_id): return true
 			found.push_back(i.item_id)
 		
@@ -34,10 +35,6 @@ var counts: Dictionary:
 			else: res[i.item_id] = i.count
 		
 		return res
-
-func _init(items: Array[ItemStack] = [], allow := AllowType.ITEM_ONLY) -> void:
-	self.items = items
-	self.allow = allow
 
 func simplify() -> void:
 	if not needs_simplify: return
@@ -55,13 +52,28 @@ func has_item(item_id: String) -> bool:
 	return items.filter(func (v: ItemStack): return v.item_id == item_id).size() > 0
 
 func has_atleast(item: ItemStack) -> bool:
-	return get_item_count(item.item_id) > item.count
+	return get_item_count(item.item_id) >= item.count
 
-func has_atleast_all(items: Array[ItemStack]) -> bool:
-	return items.reduce(func (t: bool, v: ItemStack): return t and has_atleast(v))
+func has_atleast_ingredient(ingredient: RecipeIngredient) -> bool:
+	return get_selector_count(ingredient.selector) >= ingredient.count
+
+func has_atleast_all(stacks: Array[ItemStack]) -> bool:
+	return stacks.reduce(func (t: bool, v: ItemStack): return t and has_atleast(v), true)
+
+func has_atleast_all_ingredients(ingredients: Array[RecipeIngredient]) -> bool:
+	return ingredients.reduce(func (t: bool, v: RecipeIngredient): return t and has_atleast_ingredient(v), true)
 
 func get_item_count(item_id: String) -> int:
 	return counts.get(item_id, 0)
+
+func filter_items(selector: String) -> Array[ItemStack]:
+	return items.filter(func (v: ItemStack): return v.item.satisfies_selector(selector))
+
+func get_selector_count(selector: String) -> int:
+	return counts.keys().reduce(func (t: int, v: String): 
+		return t + (counts.get(v, 0) if Item.id_satisfies_selector(v, selector) else 0),
+		0
+	)
 
 func add_item(item: ItemStack) -> int:
 	if blacklist.has(item.item_id) or (whitelist.size() > 0 and not whitelist.has(item.item_id)): return 0
@@ -78,6 +90,8 @@ func add_item(item: ItemStack) -> int:
 	
 	items.filter(func (v: ItemStack): return v.item_id == item.item_id)[0].count += count_added
 	
+	simplify()
+	
 	return count_added
 
 func add_items(items: Array[ItemStack]) -> Dictionary:
@@ -92,19 +106,44 @@ func add_items(items: Array[ItemStack]) -> Dictionary:
 func take_item(item: ItemStack) -> bool:
 	if not has_atleast(item): return false
 	
+	simplify()
+	
 	items.filter(func (v: ItemStack): return v.item_id == item.item_id)[0].count -= item.count
+	
+	simplify()
 	
 	return true
 
-func take_items(items: Array[ItemStack]) -> bool:
-	if not has_atleast_all(items): return false
+func take_ingredient(ingredient: RecipeIngredient) -> bool:
+	if not has_atleast_ingredient(ingredient): return false
 	
-	for i in items: take_item(i)
+	var stacks := filter_items(ingredient.selector)
+	
+	var remaining := ingredient.count
+	for i in stacks:
+		var taken: int = min(i.count, remaining)
+		take_item(ItemStack.new(i.item_id, taken))
+		remaining -= taken
+		if remaining < 1: break
+	
+	return true
+
+func take_items(stacks: Array[ItemStack]) -> bool:
+	if not has_atleast_all(stacks): return false
+	
+	for i in stacks: take_item(i)
+	
+	return true
+
+func take_ingredients(ingredients: Array[RecipeIngredient]) -> bool:
+	if not has_atleast_all_ingredients(ingredients): return false
+	
+	for i in ingredients: take_ingredient(i)
 	
 	return true
 
 func perform_recipe(recipe: Recipe, output_inventory := self) -> bool:
-	if not take_items(recipe.ingredients): return false
+	if not take_ingredients(recipe.ingredients): return false
 	
 	output_inventory.add_items(recipe.result)
 	

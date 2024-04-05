@@ -138,3 +138,8 @@ func show_hover_indicator(visible := true) -> void:
 	if not refs.hover_indicator: return
 	
 	refs.hover_indicator.visible = visible
+
+func join_selectors(selectors: Array[String]) -> String:
+	if selectors.size() < 1: return ""
+	
+	return selectors.slice(1).reduce(func (t: String, v: String): return t + ";" + v, selectors[0])

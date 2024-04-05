@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="TileEntityData" load_steps=3 format=3 uid="uid://4uaak6v71hvo"]
 
-[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityData.gd" id="1_1ntb8"]
-[ext_resource type="PackedScene" uid="uid://dx3c0pnmu1n7i" path="res://scenes/factory/tile_sys/tiles/Portal.tscn" id="1_quxf2"]
+[ext_resource type="PackedScene" uid="uid://dx3c0pnmu1n7i" path="res://scenes/factory/tile_sys/tiles/PortalEntity.tscn" id="1_yivto"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityData.gd" id="2_ps6ig"]
 
 [resource]
-script = ExtResource("1_1ntb8")
+script = ExtResource("2_ps6ig")
 id = "portal"
 name = "Portal"
 description = "Teleports you to a certain location on click. Shift+Click to disable teleport confirmation."
 placement_size = Vector2(5, 5)
-scene = ExtResource("1_quxf2")
+rotation_step = 0.0
+scene = ExtResource("1_yivto")
+tags = Array[String]([])

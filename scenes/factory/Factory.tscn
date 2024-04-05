@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dad0j2627f8ti"]
+[gd_scene load_steps=16 format=3 uid="uid://dad0j2627f8ti"]
 
 [ext_resource type="Script" path="res://scenes/factory/Factory.gd" id="1_x1roo"]
 [ext_resource type="Texture2D" uid="uid://cudg5hxs6gg0t" path="res://global/metal_tile.svg" id="2_whtw3"]
 [ext_resource type="Script" path="res://global/ProceduralFloor.gd" id="3_wbm2x"]
 [ext_resource type="Script" path="res://scenes/factory/WorldContainer.gd" id="6_54qrb"]
+[ext_resource type="Script" path="res://global/inventory_sys/Inventory.gd" id="7_cbnsh"]
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/TileWorld.gd" id="7_d3m5u"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/MachineInstance.gd" id="7_dmbtu"]
+[ext_resource type="Script" path="res://global/inventory_sys/ItemStack.gd" id="7_dwikl"]
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityInstance.gd" id="8_4uyo2"]
 
 [sub_resource type="Resource" id="Resource_0nnxk"]
@@ -13,10 +16,40 @@ data_id = "portal"
 position = Vector2(-2, -2)
 rotation = 0.0
 
+[sub_resource type="Resource" id="Resource_xx86v"]
+script = ExtResource("7_dwikl")
+item_id = "assembler_1"
+count = 3
+
+[sub_resource type="Resource" id="Resource_lwi14"]
+script = ExtResource("7_cbnsh")
+items = Array[ExtResource("7_dwikl")]([SubResource("Resource_xx86v")])
+whitelist = Array[String]([])
+blacklist = Array[String]([])
+limits = Array[ExtResource("7_dwikl")]([])
+allow = 0
+
+[sub_resource type="Resource" id="Resource_5yoai"]
+script = ExtResource("7_cbnsh")
+items = Array[ExtResource("7_dwikl")]([])
+whitelist = Array[String]([])
+blacklist = Array[String]([])
+limits = Array[ExtResource("7_dwikl")]([])
+allow = 0
+
+[sub_resource type="Resource" id="Resource_x7dio"]
+script = ExtResource("7_dmbtu")
+input_inventory = SubResource("Resource_lwi14")
+output_inventory = SubResource("Resource_5yoai")
+recipe_id = "test"
+data_id = "assembler_1"
+position = Vector2(5, -1)
+rotation = 0.0
+
 [sub_resource type="Resource" id="Resource_8a7mi"]
 script = ExtResource("7_d3m5u")
 tile_size = Vector2(64, 64)
-tiles = Array[ExtResource("8_4uyo2")]([SubResource("Resource_0nnxk")])
+tiles = Array[ExtResource("8_4uyo2")]([SubResource("Resource_0nnxk"), SubResource("Resource_x7dio")])
 
 [node name="Factory" type="Node2D"]
 script = ExtResource("1_x1roo")
