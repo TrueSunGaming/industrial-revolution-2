@@ -1,5 +1,8 @@
 class_name Inventory extends Resource
 
+signal items_changed
+signal filters_changed
+
 enum AllowType {
 	ITEM_ONLY,
 	FLUID_ONLY,
@@ -9,12 +12,28 @@ enum AllowType {
 @export var items: Array[ItemStack]:
 	set(val):
 		items = val
-		simplify()
+		simplify(true)
+		items_changed.emit()
 
-@export var whitelist: Array[String] = []
-@export var blacklist: Array[String] = []
-@export var limits: Array[ItemStack] = []
-@export var allow: AllowType
+@export var whitelist: Array[String] = []:
+	set(val):
+		whitelist = val
+		filters_changed.emit()
+
+@export var blacklist: Array[String] = []:
+	set(val):
+		blacklist = val
+		filters_changed.emit()
+
+@export var limits: Array[ItemStack] = []:
+	set(val):
+		limits = val
+		filters_changed.emit()
+
+@export var allow: AllowType:
+	set(val):
+		allow = val
+		filters_changed.emit()
 
 var needs_simplify: bool:
 	get:
@@ -36,12 +55,14 @@ var counts: Dictionary:
 		
 		return res
 
-func simplify() -> void:
+func simplify(silent := false) -> void:
 	if not needs_simplify: return
 	
 	items = []
 	for i in counts.keys():
 		if counts[i] > 0: items.push_back(ItemStack.new(i, counts[i]))
+	
+	if not silent: items_changed.emit()
 
 func item_allowed(item: Item) -> bool:
 	if allow == AllowType.ITEM_ONLY: return item.type == Item.Type.ITEM
@@ -75,7 +96,7 @@ func get_selector_count(selector: String) -> int:
 		0
 	)
 
-func add_item(item: ItemStack) -> int:
+func add_item(item: ItemStack, silent := false) -> int:
 	if blacklist.has(item.item_id) or (whitelist.size() > 0 and not whitelist.has(item.item_id)): return 0
 	
 	var limit_stack: Array[ItemStack] = limits.filter(func (v: ItemStack): return v.item_id == item.item_id)
@@ -84,37 +105,41 @@ func add_item(item: ItemStack) -> int:
 	
 	if not has_item(item.item_id):
 		items.push_back(ItemStack.new(item.item_id, count_added))
+		if not silent: items_changed.emit()
 		return count_added
 	
-	simplify()
+	simplify(true)
 	
 	items.filter(func (v: ItemStack): return v.item_id == item.item_id)[0].count += count_added
 	
-	simplify()
+	simplify(true)
 	
+	if not silent: items_changed.emit()
 	return count_added
 
-func add_items(items: Array[ItemStack]) -> Dictionary:
+func add_items(items: Array[ItemStack], silent := false) -> Dictionary:
 	var res := {}
 	
 	for i in items:
-		if res.has(i.item_id): res[i.item_id] += add_item(i)
-		else: res[i.item_id] = add_item(i)
+		if res.has(i.item_id): res[i.item_id] += add_item(i, true)
+		else: res[i.item_id] = add_item(i, true)
 	
+	if not silent: items_changed.emit()
 	return res
 
-func take_item(item: ItemStack) -> bool:
+func take_item(item: ItemStack, silent := false) -> bool:
 	if not has_atleast(item): return false
 	
-	simplify()
+	simplify(true)
 	
 	items.filter(func (v: ItemStack): return v.item_id == item.item_id)[0].count -= item.count
 	
-	simplify()
+	simplify(true)
 	
+	if not silent: items_changed.emit()
 	return true
 
-func take_ingredient(ingredient: RecipeIngredient) -> bool:
+func take_ingredient(ingredient: RecipeIngredient, silent := false) -> bool:
 	if not has_atleast_ingredient(ingredient): return false
 	
 	var stacks := filter_items(ingredient.selector)
@@ -122,38 +147,46 @@ func take_ingredient(ingredient: RecipeIngredient) -> bool:
 	var remaining := ingredient.count
 	for i in stacks:
 		var taken: int = min(i.count, remaining)
-		take_item(ItemStack.new(i.item_id, taken))
+		take_item(ItemStack.new(i.item_id, taken), true)
 		remaining -= taken
 		if remaining < 1: break
 	
+	if not silent: items_changed.emit()
 	return true
 
-func take_items(stacks: Array[ItemStack]) -> bool:
+func take_items(stacks: Array[ItemStack], silent := false) -> bool:
 	if not has_atleast_all(stacks): return false
 	
-	for i in stacks: take_item(i)
+	for i in stacks: take_item(i, true)
 	
+	if not silent: items_changed.emit()
 	return true
 
-func take_ingredients(ingredients: Array[RecipeIngredient]) -> bool:
+func take_ingredients(ingredients: Array[RecipeIngredient], silent := false) -> bool:
 	if not has_atleast_all_ingredients(ingredients): return false
 	
-	for i in ingredients: take_ingredient(i)
+	for i in ingredients: take_ingredient(i, true)
+	
+	if not silent: items_changed.emit()
+	return true
+
+func perform_recipe(recipe: Recipe, output_inventory := self, silent := false) -> bool:
+	if not has_atleast_all_ingredients(recipe.ingredients): return false
+	
+	take_ingredients(recipe.ingredients, true)
+	output_inventory.add_items(recipe.result, true)
+	
+	if not silent:
+		items_changed.emit()
+		output_inventory.items_changed.emit()
 	
 	return true
 
-func perform_recipe(recipe: Recipe, output_inventory := self) -> bool:
-	if not take_ingredients(recipe.ingredients): return false
-	
-	output_inventory.add_items(recipe.result)
-	
-	return true
-
-func perform_recipe_id(id: String, output_inventory := self) -> bool:
+func perform_recipe_id(id: String, output_inventory := self, silent := false) -> bool:
 	var recipe: Recipe = Recipe.get_recipe(id)
 	
 	if not recipe:
 		printerr("No recipe found with id " + id)
 		return false
 	
-	return perform_recipe(recipe, output_inventory)
+	return perform_recipe(recipe, output_inventory, silent)

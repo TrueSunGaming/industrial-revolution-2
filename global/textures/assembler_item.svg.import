@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8ufpdqygm0g0"
-path="res://.godot/imported/metal_tile_half.svg-db1065bdc718e83cf55e2d87322603f1.ctex"
+uid="uid://bvgfdaaefu4yl"
+path="res://.godot/imported/assembler_item.svg-fc8c7f2d2c201d6cbc9d6413a6e2f32c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global/metal_tile_half.svg"
-dest_files=["res://.godot/imported/metal_tile_half.svg-db1065bdc718e83cf55e2d87322603f1.ctex"]
+source_file="res://global/textures/assembler_item.svg"
+dest_files=["res://.godot/imported/assembler_item.svg-fc8c7f2d2c201d6cbc9d6413a6e2f32c.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://buai8d8hvtj3i"]
 
-[ext_resource type="Texture2D" uid="uid://dsiltppr5eopd" path="res://scenes/hover_indicator.svg" id="1_w4m64"]
-[ext_resource type="Script" path="res://scenes/HoverIndicator.gd" id="2_km5wh"]
+[ext_resource type="Texture2D" uid="uid://dsiltppr5eopd" path="res://scenes/elements/hover_indicator/hover_indicator.svg" id="1_w4m64"]
+[ext_resource type="Script" path="res://scenes/elements/hover_indicator/HoverIndicator.gd" id="2_km5wh"]
 
 [sub_resource type="Animation" id="Animation_3s1yy"]
 resource_name = "pulse"

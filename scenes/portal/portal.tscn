@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://c8t085th8fss0"]
 
-[ext_resource type="Script" path="res://scenes/Portal.gd" id="1_7tuto"]
-[ext_resource type="Texture2D" uid="uid://nrbrmdsh0d0r" path="res://scenes/portal.svg" id="1_n878g"]
-[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/Roboto-Regular.ttf" id="3_cmhf5"]
-[ext_resource type="FontFile" uid="uid://bjeub26kxvw6w" path="res://global/Roboto-Bold.ttf" id="4_rgomc"]
+[ext_resource type="Script" path="res://scenes/portal/Portal.gd" id="1_7tuto"]
+[ext_resource type="Texture2D" uid="uid://nrbrmdsh0d0r" path="res://scenes/portal/portal.svg" id="1_n878g"]
+[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/fonts/Roboto-Regular.ttf" id="3_cmhf5"]
+[ext_resource type="FontFile" uid="uid://bjeub26kxvw6w" path="res://global/fonts/Roboto-Bold.ttf" id="4_rgomc"]
 
 [sub_resource type="Curve" id="Curve_f7q1i"]
 _data = [Vector2(0, 0), 0.0, 5.65195, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -5.65195, 0.0, 0, 0]

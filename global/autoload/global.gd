@@ -1,7 +1,7 @@
 extends Node
 
-const alert_scene: PackedScene = preload("res://scenes/ui/Alert.tscn")
-const confirm_scene: PackedScene = preload("res://scenes/ui/Confirm.tscn")
+const alert_scene: PackedScene = preload("res://scenes/ui/dialog/Alert.tscn")
+const confirm_scene: PackedScene = preload("res://scenes/ui/dialog/Confirm.tscn")
  
 class ConfirmResult extends RefCounted:
 	signal closed(result)
@@ -15,6 +15,8 @@ class ConfirmResult extends RefCounted:
 		okay.connect("pressed", func ():
 			closed.emit(true)
 		)
+
+var debug_timer := 0
 
 func show_panel(panel: UIPanel) -> void:
 	if (not refs.ui): return printerr("No UI reference to add panel to")
@@ -143,3 +145,21 @@ func join_selectors(selectors: Array[String]) -> String:
 	if selectors.size() < 1: return ""
 	
 	return selectors.slice(1).reduce(func (t: String, v: String): return t + ";" + v, selectors[0])
+
+func sort_children(parent: Node, sort_function: Callable) -> void:
+	var sorted := parent.get_children()
+	sorted.sort_custom(sort_function)
+	
+	for i in parent.get_children(): parent.remove_child(i)
+	for i in sorted: parent.add_child(i)
+
+func create_blank_texture(size: Vector2i, color := Color(0, 0, 0, 0)) -> ImageTexture:
+	var data: PackedByteArray = []
+	for i in range(size.x * size.y): data.append_array([color.r8, color.g8, color.b8, color.a8])
+	return ImageTexture.create_from_image(Image.create_from_data(size.x, size.y, false, Image.FORMAT_RGBA8, data))
+
+func start_debug_timer() -> void:
+	debug_timer = Time.get_ticks_usec()
+
+func end_debug_timer() -> void:
+	prints(float(Time.get_ticks_usec() - debug_timer) / float(1e6), "seconds")

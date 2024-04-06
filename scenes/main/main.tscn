@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://1iwpgmnixaco"]
 
-[ext_resource type="Script" path="res://scenes/Main.gd" id="1_a7d2v"]
+[ext_resource type="Script" path="res://scenes/main/Main.gd" id="1_a7d2v"]
 [ext_resource type="PackedScene" uid="uid://dad0j2627f8ti" path="res://scenes/factory/Factory.tscn" id="1_p0vk0"]
 [ext_resource type="PackedScene" uid="uid://cy5ii5asdf0sd" path="res://scenes/player/Player.tscn" id="3_cbato"]
-[ext_resource type="PackedScene" uid="uid://buai8d8hvtj3i" path="res://scenes/HoverIndicator.tscn" id="4_7hnki"]
+[ext_resource type="PackedScene" uid="uid://buai8d8hvtj3i" path="res://scenes/elements/hover_indicator/HoverIndicator.tscn" id="4_7hnki"]
 [ext_resource type="PackedScene" uid="uid://cp2b6nwd32ctl" path="res://scenes/ui/UI.tscn" id="4_t77ak"]
-[ext_resource type="AudioStream" uid="uid://m84loikx68oo" path="res://global/wind.wav" id="5_d461e"]
+[ext_resource type="AudioStream" uid="uid://m84loikx68oo" path="res://global/sound/bg/wind.wav" id="5_d461e"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_a7d2v")
@@ -16,6 +16,7 @@ script = ExtResource("1_a7d2v")
 
 [node name="Player" parent="." instance=ExtResource("3_cbato")]
 movement_speed = 500
+rotation_smoothing = null
 zoom_ratio = 1.15
 zoom_smoothing = 0.8
 

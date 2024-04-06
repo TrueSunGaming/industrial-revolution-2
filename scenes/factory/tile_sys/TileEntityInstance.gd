@@ -93,13 +93,13 @@ func remove_from_world() -> void:
 func relay_tick(delta: float) -> void:
 	world_tick.emit(delta)
 	
-	on_tick()
+	on_tick(delta)
 
 func update_position() -> void:
 	if node_ref: node_ref.position = render_position
 
 # template for inherited classes
-func on_tick() -> void:
+func on_tick(_delta: float) -> void:
 	pass
 
 # template for inherited classes

@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://he4d00u48dqa"]
 
-[ext_resource type="PackedScene" uid="uid://bvn4fomivl8v1" path="res://scenes/ui/Alert.tscn" id="1_i087j"]
-[ext_resource type="Script" path="res://scenes/ui/Confirm.gd" id="2_id7mw"]
+[ext_resource type="PackedScene" uid="uid://bvn4fomivl8v1" path="res://scenes/ui/dialog/Alert.tscn" id="1_i087j"]
+[ext_resource type="Script" path="res://scenes/ui/dialog/Confirm.gd" id="2_id7mw"]
 [ext_resource type="StyleBox" uid="uid://da0avyyhi6omb" path="res://scenes/ui/UIPanel_stylebox.tres" id="3_0coy4"]
-[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/Roboto-Regular.ttf" id="3_x7xd3"]
+[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/fonts/Roboto-Regular.ttf" id="3_x7xd3"]
 
 [node name="UIPanel" instance=ExtResource("1_i087j")]
 script = ExtResource("2_id7mw")

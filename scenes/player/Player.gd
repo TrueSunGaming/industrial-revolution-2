@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 const SPAWN_POS := Vector2(0, 320)
+const inventory_scene: PackedScene = preload("res://scenes/ui/inventory/player/PlayerInventory.tscn")
 
 @export var movement_speed: int
 @export_range(0, 1) var rotation_smoothing: float
@@ -27,11 +28,14 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("zoomin"):
 		goal_zoom *= zoom_ratio
+		goal_zoom = clampf(goal_zoom, 0.33, 2)
 	
 	if Input.is_action_pressed("zoomout"):
 		goal_zoom /= zoom_ratio
+		goal_zoom = clampf(goal_zoom, 0.33, 2)
 	
-	goal_zoom = clampf(goal_zoom, 0.33, 2)
+	if Input.is_action_just_released("inventory"):
+		pass
 
 func _ready() -> void:
 	refs.player = self

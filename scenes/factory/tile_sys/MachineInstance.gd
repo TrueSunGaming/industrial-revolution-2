@@ -1,5 +1,7 @@
 class_name MachineInstance extends ContainerEntityInstance
 
+const machine_ui_scene: PackedScene = preload("res://scenes/ui/inventory/machine/MachineUI.tscn")
+
 @export var input_inventory := Inventory.new()
 @export var output_inventory := Inventory.new()
 @export var recipe_id: String:
@@ -11,7 +13,7 @@ class_name MachineInstance extends ContainerEntityInstance
 		for i in recipe.ingredients:
 			input_inventory.whitelist.append_array(Item.all_valid_items(i.selector).map(func (v: Item): return v.id))
 
-var craft_progress := 0
+var craft_progress: float = 0
 
 var recipe: Recipe:
 	get:
@@ -31,11 +33,17 @@ func remove_item(item: ItemStack) -> bool:
 	
 	return false
 
-func on_tick() -> void:
-	craft_progress += 1
-	if craft_progress >= recipe.craft_time:
+func on_tick(delta: float) -> void:
+	if not input_inventory.has_atleast_all_ingredients(recipe.ingredients):
 		craft_progress = 0
-		craft()
+		return
+	
+	craft_progress += delta
+	
+	if craft_progress >= recipe.craft_time:
+		for i in range(floor(craft_progress / recipe.craft_time)): craft()
+	
+	craft_progress = fmod(craft_progress, recipe.craft_time)
 
 func craft() -> void:
 	var success := input_inventory.perform_recipe_id(recipe_id, output_inventory)
@@ -46,3 +54,7 @@ func craft() -> void:
 func on_click() -> void:
 	print("Input: " + str(input_inventory.items))
 	print("Output: " + str(output_inventory.items))
+	
+	var node: MachineUI = machine_ui_scene.instantiate()
+	node.machine = self
+	global.show_panel(node)

@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccicr25uf12bw"]
+
+[ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="1_7d8t5"]
+[ext_resource type="Script" path="res://scenes/ui/inventory/machine/MachineUI.gd" id="2_asabe"]
+[ext_resource type="Script" path="res://scenes/ui/inventory/InventoryDisplay.gd" id="2_plmre"]
+[ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/fonts/Roboto-Regular.ttf" id="3_p68w3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ixq3"]
+content_margin_bottom = 5.0
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6j11"]
+bg_color = Color(0.16, 0.8, 0.16, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="UIPanel" instance=ExtResource("1_7d8t5")]
+script = ExtResource("2_asabe")
+machine = null
+
+[node name="Label" type="Label" parent="PanelContent" index="1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_p68w3")
+text = "Input"
+
+[node name="Input" type="GridContainer" parent="PanelContent" index="2"]
+layout_mode = 2
+columns = 5
+script = ExtResource("2_plmre")
+
+[node name="Label2" type="Label" parent="PanelContent" index="3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_p68w3")
+text = "Output"
+
+[node name="Output" type="GridContainer" parent="PanelContent" index="4"]
+layout_mode = 2
+columns = 5
+script = ExtResource("2_plmre")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContent" index="5"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContent/HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_6ixq3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_l6j11")
+value = 50.0
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="PanelContent/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+stretch_mode = 5

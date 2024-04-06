@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://ds0pbn17gbev2"]
 
-[ext_resource type="Shader" uid="uid://bl5tkhydy3hp2" path="res://global/hsva_modulate.tres" id="1_lgt56"]
+[ext_resource type="Shader" uid="uid://bl5tkhydy3hp2" path="res://global/shaders/hsva_modulate.tres" id="1_lgt56"]
 [ext_resource type="Texture2D" uid="uid://l8j2ojrqc6th" path="res://scenes/ui/quest_hud.svg" id="1_mflg4"]
 [ext_resource type="Script" path="res://scenes/ui/QuestHUD.gd" id="1_mra24"]
-[ext_resource type="FontFile" uid="uid://bjeub26kxvw6w" path="res://global/Roboto-Bold.ttf" id="2_fcivd"]
+[ext_resource type="FontFile" uid="uid://bjeub26kxvw6w" path="res://global/fonts/Roboto-Bold.ttf" id="2_fcivd"]
 [ext_resource type="Texture2D" uid="uid://c7f6n65rgpc4d" path="res://scenes/ui/quest_book.svg" id="4_js26b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q1tv4"]

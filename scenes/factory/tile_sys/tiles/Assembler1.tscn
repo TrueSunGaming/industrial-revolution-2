@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bpyj0xe16iukk"]
 
-[ext_resource type="Texture2D" uid="uid://dpusqbm1k14qx" path="res://global/assembler.svg" id="1_3lebg"]
+[ext_resource type="Texture2D" uid="uid://dpusqbm1k14qx" path="res://global/textures/assembler.svg" id="1_dltsi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jnqyn"]
 size = Vector2(192, 192)
@@ -9,7 +9,7 @@ size = Vector2(192, 192)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_3lebg")
+texture = ExtResource("1_dltsi")
 centered = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

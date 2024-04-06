@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://badmt1gtlarty"]
 
-[ext_resource type="Texture2D" uid="uid://cfd3oag4fxsi7" path="res://global/quest_marker.svg" id="1_2m3sk"]
+[ext_resource type="Texture2D" uid="uid://cfd3oag4fxsi7" path="res://global/textures/quest_marker.svg" id="1_2m3sk"]
 
 [sub_resource type="Animation" id="Animation_g43on"]
 resource_name = "quest_marker_float"

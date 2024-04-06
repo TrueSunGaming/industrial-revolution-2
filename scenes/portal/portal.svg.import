@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfd3oag4fxsi7"
-path="res://.godot/imported/quest_marker.svg-24215d73320a66e1b60fdce05edce751.ctex"
+uid="uid://nrbrmdsh0d0r"
+path="res://.godot/imported/portal.svg-fdd1a4871266c7ee633cb01eb3e5041c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global/quest_marker.svg"
-dest_files=["res://.godot/imported/quest_marker.svg-24215d73320a66e1b60fdce05edce751.ctex"]
+source_file="res://scenes/portal/portal.svg"
+dest_files=["res://.godot/imported/portal.svg-fdd1a4871266c7ee633cb01eb3e5041c.ctex"]
 
 [params]
 
@@ -32,6 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
+svg/scale=2.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

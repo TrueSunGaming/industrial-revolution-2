@@ -20,7 +20,7 @@ func check_tick() -> void:
 	var diff := time - last_tick
 	
 	if diff >= 1.0 / float(tick_rate):
-		world.process_tick(diff)
+		world.process_tick(diff * float(tick_rate))
 		last_tick = time
 
 func _process(delta: float) -> void:
@@ -59,6 +59,8 @@ func render_tile(id: int) -> void:
 	add_child(instance.node_ref)
 
 func _input(event: InputEvent) -> void:
+	if refs.ui.panel_visible: return
+	
 	if Input.is_action_just_released("interact"):
 		for i in hovered_tiles:
 			i.on_click()

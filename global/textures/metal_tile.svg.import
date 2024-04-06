@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpm7vekktuwe3"
-path="res://.godot/imported/metal_tile_small.svg-fa983beda8a00dd486d194d528afd88a.ctex"
+uid="uid://cudg5hxs6gg0t"
+path="res://.godot/imported/metal_tile.svg-684854fc64177941be6b7d4673afbcb3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global/metal_tile_small.svg"
-dest_files=["res://.godot/imported/metal_tile_small.svg-fa983beda8a00dd486d194d528afd88a.ctex"]
+source_file="res://global/textures/metal_tile.svg"
+dest_files=["res://.godot/imported/metal_tile.svg-684854fc64177941be6b7d4673afbcb3.ctex"]
 
 [params]
 
@@ -32,6 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
+svg/scale=2.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

@@ -1,24 +1,18 @@
-[gd_resource type="Resource" script_class="Recipe" load_steps=6 format=3 uid="uid://du6rcnn60vg8g"]
+[gd_resource type="Resource" script_class="Recipe" load_steps=4 format=3 uid="uid://du6rcnn60vg8g"]
 
 [ext_resource type="Script" path="res://global/inventory_sys/Recipe.gd" id="1_hd0ma"]
-[ext_resource type="Script" path="res://global/inventory_sys/RecipeIngredient.gd" id="1_ijskl"]
 [ext_resource type="Script" path="res://global/inventory_sys/ItemStack.gd" id="1_x2dn7"]
-
-[sub_resource type="Resource" id="Resource_7ue5c"]
-script = ExtResource("1_ijskl")
-selector = "*item"
-count = 1
 
 [sub_resource type="Resource" id="Resource_4wk2e"]
 script = ExtResource("1_x2dn7")
 item_id = "assembler_1"
-count = 2
+count = 1
 
 [resource]
 script = ExtResource("1_hd0ma")
 id = "test"
-ingredients = Array[ExtResource("1_ijskl")]([SubResource("Resource_7ue5c")])
+ingredients = Array[Resource("res://global/inventory_sys/RecipeIngredient.gd")]([])
 result = Array[ExtResource("1_x2dn7")]([SubResource("Resource_4wk2e")])
 name_override = ""
 tags = Array[String]([])
-craft_time = 1
+craft_time = 60
