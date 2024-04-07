@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7f6n65rgpc4d"
-path="res://.godot/imported/quest_book.svg-1bf7fdbae652bccd11d18137091b3318.ctex"
+uid="uid://l8j2ojrqc6th"
+path="res://.godot/imported/quest_hud.svg-1e559be8c2c52878d5610141b1e3be9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/quest_book.svg"
-dest_files=["res://.godot/imported/quest_book.svg-1bf7fdbae652bccd11d18137091b3318.ctex"]
+source_file="res://scenes/ui/hud/quest_hud.svg"
+dest_files=["res://.godot/imported/quest_hud.svg-1e559be8c2c52878d5610141b1e3be9e.ctex"]
 
 [params]
 

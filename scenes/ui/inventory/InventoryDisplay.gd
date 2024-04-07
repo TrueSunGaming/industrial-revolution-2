@@ -1,5 +1,6 @@
 class_name InventoryDisplay extends GridContainer
 
+@export_enum("Disabled", "Name", "Quantity") var sort_mode := "Disabled"
 @export var accepts_input := true
 @export var extra_rows := 1
 @export var inventory: Inventory:
@@ -37,9 +38,16 @@ func update() -> void:
 		
 		add_child(display)
 	
-	global.sort_children(self, func (a: ItemDisplay, b: ItemDisplay):
-		return a.stack.item.name.naturalnocasecmp_to(b.stack.item.name) < 0
-	)
+	match sort_mode:
+		"Name":
+			global.sort_children(self, func (a: ItemDisplay, b: ItemDisplay):
+				return a.stack.item.name.naturalnocasecmp_to(b.stack.item.name) < 0
+			)
+		
+		"Quantity":
+			global.sort_children(self, func (a: ItemDisplay, b: ItemDisplay):
+				return b.stack.count > a.stack.count
+			)
 	
 	var last_row := get_child_count() % columns
 	var rows: int = ceil(float(get_child_count()) / float(columns))

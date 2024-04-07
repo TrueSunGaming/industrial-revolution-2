@@ -1,6 +1,6 @@
 class_name UIPanel extends PanelContainer
 
-signal closed
+signal closed(data: Variant)
 
 @export var title: String:
 	set(val):
@@ -10,4 +10,4 @@ signal closed
 
 func _on_close_pressed() -> void:
 	queue_free()
-	closed.emit(false)
+	closed.emit(null)

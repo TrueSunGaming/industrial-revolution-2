@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://2cvxab220oy8"]
 
-[ext_resource type="Script" path="res://scenes/ui/HUD.gd" id="1_0ppp0"]
-[ext_resource type="PackedScene" uid="uid://ds0pbn17gbev2" path="res://scenes/ui/QuestHUD.tscn" id="2_wpqbp"]
+[ext_resource type="Script" path="res://scenes/ui/hud/HUD.gd" id="1_0ppp0"]
+[ext_resource type="PackedScene" uid="uid://ds0pbn17gbev2" path="res://scenes/ui/hud/QuestHUD.tscn" id="2_wpqbp"]
 [ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/fonts/Roboto-Regular.ttf" id="3_0i2fq"]
-[ext_resource type="Script" path="res://scenes/ui/FPS.gd" id="4_s5xof"]
+[ext_resource type="Script" path="res://scenes/ui/hud/FPS.gd" id="4_s5xof"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3

@@ -1,9 +1,9 @@
 class_name TileWorld extends Resource
 
-signal tile_placed(id, idx)
-signal tile_removed(id)
-signal tile_render(id)
-signal tick(delta)
+signal tile_placed(id: int, idx: int)
+signal tile_removed(id: int)
+signal tile_render(id: int)
+signal tick(delta: float)
 
 @export var tile_size: Vector2
 

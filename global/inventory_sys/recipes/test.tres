@@ -13,6 +13,6 @@ script = ExtResource("1_hd0ma")
 id = "test"
 ingredients = Array[Resource("res://global/inventory_sys/RecipeIngredient.gd")]([])
 result = Array[ExtResource("1_x2dn7")]([SubResource("Resource_4wk2e")])
-name_override = ""
+name_override = "Test Recipe"
 tags = Array[String]([])
 craft_time = 60

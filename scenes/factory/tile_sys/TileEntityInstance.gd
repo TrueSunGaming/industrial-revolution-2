@@ -1,8 +1,8 @@
 class_name TileEntityInstance extends Resource
 
-signal world_attached(world)
+signal world_attached(world: TileWorld)
 signal world_removed
-signal world_tick(delta)
+signal world_tick(delta: float)
 
 static var next_id := 0
 static var list := {}

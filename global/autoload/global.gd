@@ -17,11 +17,18 @@ class ConfirmResult extends RefCounted:
 		)
 
 var debug_timer := 0
+var item_on_mouse: ItemStack = null
+var item_on_mouse_original_inventory: Inventory = null
 
 func show_panel(panel: UIPanel) -> void:
 	if (not refs.ui): return printerr("No UI reference to add panel to")
 	
 	refs.ui.show_panel(panel)
+
+func show_data_panel(panel: UIPanel) -> Variant:
+	show_panel(panel)
+	
+	return await panel.closed
 
 func alert(title: String, msg: String, wait := false) -> void:
 	var panel: UIPanel = alert_scene.instantiate()
@@ -37,12 +44,9 @@ func confirm(title: String, msg: String) -> bool:
 	var panel: Confirm = confirm_scene.instantiate()
 	
 	panel.get_node("PanelContent/Label").text = msg
-	
 	panel.title = title
 	
-	show_panel(panel)
-	
-	return await panel.closed
+	return to_bool(await show_data_panel(panel))
 
 func load_world(scene: PackedScene, destination: String, using_portal := false) -> void:
 	if not refs.main: return printerr("No main reference to load world")
@@ -163,3 +167,6 @@ func start_debug_timer() -> void:
 
 func end_debug_timer() -> void:
 	prints(float(Time.get_ticks_usec() - debug_timer) / float(1e6), "seconds")
+
+func to_bool(val: Variant) -> bool:
+	return not not val

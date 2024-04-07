@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwaneb5sy745r"]
+
+[ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="1_718vd"]
+[ext_resource type="Script" path="res://scenes/ui/inventory/machine/RecipeSelect.gd" id="2_0lkav"]
+
+[node name="UIPanel" instance=ExtResource("1_718vd")]
+script = ExtResource("2_0lkav")
+title = "Select Recipe"
+
+[node name="GridContainer" type="GridContainer" parent="PanelContent" index="1"]
+layout_mode = 2
+columns = 5

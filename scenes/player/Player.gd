@@ -8,6 +8,8 @@ const inventory_scene: PackedScene = preload("res://scenes/ui/inventory/player/P
 @export var zoom_ratio: float
 @export_range(0, 1) var zoom_smoothing: float
 
+var inventory := Inventory.new()
+
 @onready var goal_zoom := float($Camera2D.zoom.x)
 
 func next_frame_zoom(delta: float) -> Vector2:
@@ -26,6 +28,12 @@ func _process(delta: float) -> void:
 	$Camera2D.zoom = next_frame_zoom(delta)
 
 func _input(event: InputEvent) -> void:
+	if refs.ui.panel_visible:
+		if Input.is_action_just_pressed("inventory"):
+			for i in refs.ui.get_node("Panels").get_children(): i.queue_free()
+		
+		return
+	
 	if Input.is_action_pressed("zoomin"):
 		goal_zoom *= zoom_ratio
 		goal_zoom = clampf(goal_zoom, 0.33, 2)
@@ -34,8 +42,9 @@ func _input(event: InputEvent) -> void:
 		goal_zoom /= zoom_ratio
 		goal_zoom = clampf(goal_zoom, 0.33, 2)
 	
-	if Input.is_action_just_released("inventory"):
-		pass
+	if Input.is_action_just_pressed("inventory"):
+		var node: UIPanel = inventory_scene.instantiate()
+		global.show_panel(node)
 
 func _ready() -> void:
 	refs.player = self

@@ -1,9 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccicr25uf12bw"]
+[gd_scene load_steps=11 format=3 uid="uid://ccicr25uf12bw"]
 
 [ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="1_7d8t5"]
 [ext_resource type="Script" path="res://scenes/ui/inventory/machine/MachineUI.gd" id="2_asabe"]
 [ext_resource type="Script" path="res://scenes/ui/inventory/InventoryDisplay.gd" id="2_plmre"]
 [ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/fonts/Roboto-Regular.ttf" id="3_p68w3"]
+[ext_resource type="StyleBox" uid="uid://cgcf884o18l5q" path="res://scenes/ui/ScrollContainerStyleBox.tres" id="4_k0fam"]
+[ext_resource type="Script" path="res://scenes/ui/inventory/RecipeDisplay.gd" id="6_2u4ex"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4hrmn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5numh"]
+content_margin_top = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ixq3"]
 content_margin_bottom = 5.0
@@ -23,40 +30,90 @@ corner_radius_bottom_left = 10
 script = ExtResource("2_asabe")
 machine = null
 
-[node name="Label" type="Label" parent="PanelContent" index="1"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContent" index="1"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContent/HBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContent/HBoxContainer/VBoxContainer" index="0"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_p68w3")
-text = "Input"
+text = "Player Inventory"
 
-[node name="Input" type="GridContainer" parent="PanelContent" index="2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContent/HBoxContainer/VBoxContainer" index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("4_k0fam")
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="InventoryDisplay" type="GridContainer" parent="PanelContent/HBoxContainer/VBoxContainer/ScrollContainer" index="0"]
 layout_mode = 2
 columns = 5
 script = ExtResource("2_plmre")
+sort_mode = "Quantity"
 
-[node name="Label2" type="Label" parent="PanelContent" index="3"]
+[node name="VSeparator" type="VSeparator" parent="PanelContent/HBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContent/HBoxContainer" index="2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContent/HBoxContainer/VBoxContainer2" index="0"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_p68w3")
-text = "Output"
+text = "Machine"
 
-[node name="Output" type="GridContainer" parent="PanelContent" index="4"]
+[node name="TabContainer" type="TabContainer" parent="PanelContent/HBoxContainer/VBoxContainer2" index="1"]
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
-columns = 5
-script = ExtResource("2_plmre")
+theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_4hrmn")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5numh")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContent" index="5"]
+[node name="Craft" type="VBoxContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer" index="1"]
 layout_mode = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="PanelContent/HBoxContainer" index="0"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Craft" index="0"]
 layout_mode = 2
-size_flags_horizontal = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Craft/HBoxContainer" index="0"]
+custom_minimum_size = Vector2(268, 0)
+layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_6ixq3")
 theme_override_styles/fill = SubResource("StyleBoxFlat_l6j11")
 value = 50.0
 show_percentage = false
 
-[node name="TextureRect" type="TextureRect" parent="PanelContent/HBoxContainer" index="1"]
+[node name="RecipeDisplay" type="TextureRect" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Craft/HBoxContainer" index="1"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 stretch_mode = 5
+script = ExtResource("6_2u4ex")
+opens_selector = true
+
+[node name="Input" type="VBoxContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer" index="2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Input" type="GridContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Input" index="0"]
+layout_mode = 2
+columns = 5
+script = ExtResource("2_plmre")
+sort_mode = "Quantity"
+
+[node name="Output" type="VBoxContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer" index="3"]
+visible = false
+layout_mode = 2
+
+[node name="Output" type="GridContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Output" index="0"]
+layout_mode = 2
+columns = 5
+script = ExtResource("2_plmre")
+sort_mode = "Quantity"
+accepts_input = false
+
+[connection signal="set_recipe" from="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Craft/HBoxContainer/RecipeDisplay" to="." method="_on_recipe_display_set_recipe"]

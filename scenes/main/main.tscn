@@ -16,7 +16,6 @@ script = ExtResource("1_a7d2v")
 
 [node name="Player" parent="." instance=ExtResource("3_cbato")]
 movement_speed = 500
-rotation_smoothing = null
 zoom_ratio = 1.15
 zoom_smoothing = 0.8
 

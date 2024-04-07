@@ -10,6 +10,7 @@ const machine_ui_scene: PackedScene = preload("res://scenes/ui/inventory/machine
 		recipe_id = val
 		
 		input_inventory.whitelist = []
+		if not recipe: return
 		for i in recipe.ingredients:
 			input_inventory.whitelist.append_array(Item.all_valid_items(i.selector).map(func (v: Item): return v.id))
 
@@ -34,7 +35,7 @@ func remove_item(item: ItemStack) -> bool:
 	return false
 
 func on_tick(delta: float) -> void:
-	if not input_inventory.has_atleast_all_ingredients(recipe.ingredients):
+	if not recipe or not input_inventory.has_atleast_all_ingredients(recipe.ingredients):
 		craft_progress = 0
 		return
 	
@@ -48,13 +49,8 @@ func on_tick(delta: float) -> void:
 func craft() -> void:
 	var success := input_inventory.perform_recipe_id(recipe_id, output_inventory)
 	if not success: return
-	print("Post-Craft Input: " + str(input_inventory.items))
-	print("Post-Craft Output: " + str(output_inventory.items))
 
 func on_click() -> void:
-	print("Input: " + str(input_inventory.items))
-	print("Output: " + str(output_inventory.items))
-	
 	var node: MachineUI = machine_ui_scene.instantiate()
 	node.machine = self
 	global.show_panel(node)
