@@ -17,7 +17,21 @@ class ConfirmResult extends RefCounted:
 		)
 
 var debug_timer := 0
-var item_on_mouse: ItemStack = null
+
+var item_on_mouse: ItemStack = null:
+	set(val):
+		if val == item_on_mouse: return
+		
+		if item_on_mouse and item_on_mouse.display_update.is_connected(refs.ui.update_picked_display): 
+			item_on_mouse.display_update.disconnect(refs.ui.update_picked_display)
+		
+		item_on_mouse = val
+		
+		refs.ui.update_picked_display()
+		
+		if not val: return
+		val.display_update.connect(refs.ui.update_picked_display)
+
 var item_on_mouse_original_inventory: Inventory = null
 
 func show_panel(panel: UIPanel) -> void:

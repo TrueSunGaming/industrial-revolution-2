@@ -22,3 +22,5 @@ layout_mode = 2
 columns = 10
 script = ExtResource("2_q8up7")
 sort_mode = "Quantity"
+items_pickable = true
+items_droppable = true

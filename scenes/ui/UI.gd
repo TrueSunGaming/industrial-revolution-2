@@ -8,3 +8,6 @@ func _ready() -> void:
 
 func show_panel(panel: UIPanel) -> void:
 	$Panels.add_child(panel)
+
+func update_picked_display() -> void:
+	$PickedUpItem.update_pickup()

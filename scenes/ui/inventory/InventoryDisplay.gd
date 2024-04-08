@@ -1,8 +1,5 @@
 class_name InventoryDisplay extends GridContainer
 
-@export_enum("Disabled", "Name", "Quantity") var sort_mode := "Disabled"
-@export var accepts_input := true
-@export var extra_rows := 1
 @export var inventory: Inventory:
 	set(val):
 		if val == inventory: return
@@ -13,6 +10,13 @@ class_name InventoryDisplay extends GridContainer
 		inventory = val
 		
 		update()
+
+@export_enum("Disabled", "Name", "Quantity") var sort_mode := "Disabled"
+@export var accepts_input := true
+@export var extra_rows := 1
+@export var shift_inventory: Inventory
+@export var items_pickable := false
+@export var items_droppable := false
 
 func update() -> void:
 	if inventory.needs_simplify: return inventory.simplify()
@@ -35,6 +39,10 @@ func update() -> void:
 		
 		var display := ItemDisplay.new()
 		display.stack = i
+		display.inventory = inventory
+		display.shift_inventory = shift_inventory
+		display.pickable = items_pickable
+		display.droppable = items_droppable
 		
 		add_child(display)
 	
@@ -52,4 +60,10 @@ func update() -> void:
 	var last_row := get_child_count() % columns
 	var rows: int = ceil(float(get_child_count()) / float(columns))
 	
-	for i in range((rows + extra_rows) * columns - last_row): add_child(ItemDisplay.new())
+	for i in range((rows + extra_rows) * columns - last_row):
+		var blank := ItemDisplay.new()
+		blank.inventory = inventory
+		blank.shift_inventory = shift_inventory
+		blank.pickable = items_pickable
+		blank.droppable = items_droppable
+		add_child(blank)
