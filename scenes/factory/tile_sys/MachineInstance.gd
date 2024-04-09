@@ -2,8 +2,6 @@ class_name MachineInstance extends ContainerEntityInstance
 
 const machine_ui_scene: PackedScene = preload("res://scenes/ui/inventory/machine/MachineUI.tscn")
 
-@export var input_inventory := Inventory.new()
-@export var output_inventory := Inventory.new()
 @export var recipe_id: String:
 	set(val):
 		if val == recipe_id: return
@@ -14,6 +12,8 @@ const machine_ui_scene: PackedScene = preload("res://scenes/ui/inventory/machine
 		for i in recipe.ingredients:
 			input_inventory.whitelist.append_array(Item.all_valid_items(i.selector).map(func (v: Item): return v.id))
 
+var input_inventory := Inventory.new()
+var output_inventory := Inventory.new()
 var craft_progress: float = 0
 
 var recipe: Recipe:

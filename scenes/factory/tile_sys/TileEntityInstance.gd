@@ -27,7 +27,13 @@ var prev_rotation: float:
 	get:
 		return global.sub_deg(rotation, tile_data.rotation_step)
 
-var node_ref: Node2D
+var node_ref: Node2D:
+	set(val):
+		if val == node_ref: return
+		node_ref = val
+		
+		on_node_ref_change()
+
 var id: int
 var world: TileWorld:
 	set(val):
@@ -104,4 +110,8 @@ func on_tick(_delta: float) -> void:
 
 # template for inherited classes
 func on_click() -> void:
+	pass
+
+# template for inherited classes
+func on_node_ref_change() -> void:
 	pass

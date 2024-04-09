@@ -6,4 +6,3 @@ func update_pickup() -> void:
 
 func _process(delta: float) -> void:
 	global_position = get_global_mouse_position() - texture.get_size() / 2
-	pass

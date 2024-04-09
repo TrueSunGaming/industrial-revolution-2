@@ -60,6 +60,7 @@ func render_tile(id: int) -> void:
 
 func _input(event: InputEvent) -> void:
 	if refs.ui.panel_visible: return
+	if refs.factory.disabled: return
 	
 	if Input.is_action_just_released("interact"):
 		for i in hovered_tiles:

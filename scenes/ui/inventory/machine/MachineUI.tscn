@@ -50,7 +50,7 @@ vertical_scroll_mode = 2
 
 [node name="InventoryDisplay" type="GridContainer" parent="PanelContent/HBoxContainer/VBoxContainer/ScrollContainer" index="0"]
 layout_mode = 2
-columns = 5
+columns = 10
 script = ExtResource("2_plmre")
 sort_mode = "Quantity"
 items_pickable = true
@@ -103,7 +103,7 @@ size_flags_horizontal = 3
 
 [node name="Input" type="GridContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Input" index="0"]
 layout_mode = 2
-columns = 5
+columns = 10
 script = ExtResource("2_plmre")
 sort_mode = "Quantity"
 items_pickable = true
@@ -115,7 +115,7 @@ layout_mode = 2
 
 [node name="Output" type="GridContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Output" index="0"]
 layout_mode = 2
-columns = 5
+columns = 10
 script = ExtResource("2_plmre")
 sort_mode = "Quantity"
 accepts_input = false

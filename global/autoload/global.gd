@@ -34,6 +34,10 @@ var item_on_mouse: ItemStack = null:
 
 var item_on_mouse_original_inventory: Inventory = null
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("test"):
+		confirm("TEST", "TEST")
+
 func show_panel(panel: UIPanel) -> void:
 	if (not refs.ui): return printerr("No UI reference to add panel to")
 	

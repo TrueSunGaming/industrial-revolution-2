@@ -24,8 +24,12 @@ func _process(_delta: float) -> void:
 	$RichTextLabel.pivot_offset = $RichTextLabel.size / 2
 
 func _input_event(_viewport: Viewport, _event: InputEvent, _shape_idx: int) -> void:
-	if confirmation_open: return
 	if not Input.is_action_just_released("interact"): return
+	
+	teleport()
+
+func teleport() -> void:
+	if confirmation_open: return
 	
 	if not Input.is_physical_key_pressed(KEY_SHIFT):
 		confirmation_open = true
