@@ -173,8 +173,7 @@ func sort_children(parent: Node, sort_function: Callable) -> void:
 	var sorted := parent.get_children()
 	sorted.sort_custom(sort_function)
 	
-	for i in parent.get_children(): parent.remove_child(i)
-	for i in sorted: parent.add_child(i)
+	for i in range(sorted.size()): parent.move_child(sorted[i], i)
 
 func create_blank_texture(size: Vector2i, color := Color(0, 0, 0, 0)) -> ImageTexture:
 	var img := Image.load_from_file("res://global/textures/blank32x32.png")
