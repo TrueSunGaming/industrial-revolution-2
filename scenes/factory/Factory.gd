@@ -1,5 +1,5 @@
 class_name Factory extends Node2D
-
+ 
 @export var disabled := false:
 	set(val):
 		if val == disabled: return

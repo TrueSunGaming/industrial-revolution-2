@@ -117,10 +117,12 @@ func add_item(item: ItemStack, silent := false) -> int:
 	if not silent: items_changed.emit()
 	return count_added
 
-func add_items(items: Array[ItemStack], silent := false) -> Dictionary:
+func add_items(stacks: Array[ItemStack], silent := false) -> Dictionary:
+	if stacks.size() < 1: return {}
+	
 	var res := {}
 	
-	for i in items:
+	for i in stacks:
 		if res.has(i.item_id): res[i.item_id] += add_item(i, true)
 		else: res[i.item_id] = add_item(i, true)
 	
@@ -135,6 +137,15 @@ func take_item(item: ItemStack, silent := false) -> bool:
 	items.filter(func (v: ItemStack): return v.item_id == item.item_id)[0].count -= item.count
 	
 	simplify(true)
+	
+	if not silent: items_changed.emit()
+	return true
+
+func take_items(stacks: Array[ItemStack], silent := false) -> bool:
+	if stacks.size() < 1: return true
+	if not has_atleast_all(stacks): return false
+	
+	for i in stacks: take_item(i, true)
 	
 	if not silent: items_changed.emit()
 	return true
@@ -154,15 +165,8 @@ func take_ingredient(ingredient: RecipeIngredient, silent := false) -> bool:
 	if not silent: items_changed.emit()
 	return true
 
-func take_items(stacks: Array[ItemStack], silent := false) -> bool:
-	if not has_atleast_all(stacks): return false
-	
-	for i in stacks: take_item(i, true)
-	
-	if not silent: items_changed.emit()
-	return true
-
 func take_ingredients(ingredients: Array[RecipeIngredient], silent := false) -> bool:
+	if ingredients.size() < 1: return true
 	if not has_atleast_all_ingredients(ingredients): return false
 	
 	for i in ingredients: take_ingredient(i, true)
@@ -177,8 +181,8 @@ func perform_recipe(recipe: Recipe, output_inventory := self, silent := false) -
 	output_inventory.add_items(recipe.result, true)
 	
 	if not silent:
-		items_changed.emit()
-		output_inventory.items_changed.emit()
+		if recipe.ingredients.size() > 0: items_changed.emit()
+		if recipe.result.size() > 0: output_inventory.items_changed.emit()
 	
 	return true
 

@@ -11,12 +11,7 @@ class_name InventoryDisplay extends GridContainer
 		
 		update()
 
-@export_enum("Disabled", "Name", "Quantity") var sort_mode := "Disabled"
-@export var accepts_input := true
-@export var extra_rows := 1
-@export var shift_inventory: Inventory
-@export var items_pickable := false
-@export var items_droppable := false
+@export var config: InventoryDisplayConfig
 
 func update() -> void:
 	if inventory.needs_simplify: return inventory.simplify()
@@ -37,16 +32,9 @@ func update() -> void:
 	for i in inventory.items:
 		if rendered_ids.has(i.item_id): continue
 		
-		var display := ItemDisplay.new()
-		display.stack = i
-		display.inventory = inventory
-		display.shift_inventory = shift_inventory
-		display.pickable = items_pickable
-		display.droppable = items_droppable
-		
-		add_child(display)
+		add_child(ItemDisplay.new(i, inventory, config))
 	
-	match sort_mode:
+	match config.sort_mode:
 		"Name":
 			global.sort_children(self, func (a: ItemDisplay, b: ItemDisplay):
 				return a.stack.item.name.naturalnocasecmp_to(b.stack.item.name) < 0
@@ -60,10 +48,6 @@ func update() -> void:
 	var last_row := get_child_count() % columns
 	var rows: int = ceil(float(get_child_count()) / float(columns))
 	
-	for i in range((rows + extra_rows) * columns - last_row):
-		var blank := ItemDisplay.new()
-		blank.inventory = inventory
-		blank.shift_inventory = shift_inventory
-		blank.pickable = items_pickable
-		blank.droppable = items_droppable
+	for i in range((rows + config.extra_rows) * columns - last_row):
+		var blank := ItemDisplay.new(null, inventory, config)
 		add_child(blank)

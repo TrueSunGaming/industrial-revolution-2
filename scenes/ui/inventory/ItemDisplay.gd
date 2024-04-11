@@ -1,17 +1,55 @@
 class_name ItemDisplay extends TextureRect
 
+const hsva_modulate_shader: VisualShader = preload("res://global/shaders/hsva_modulate.tres")
+
 @export var stack: ItemStack:
 	set(val):
 		stack = val.duplicate() if val else null
 		
 		update()
 
-@export var pickable := false
-@export var droppable := false
+@export var config: ItemDisplayConfig:
+	set(val):
+		if val == config: return
+		config = val
+		
+		if config: apply_config()
+
 @export var inventory: Inventory
-@export var shift_inventory: Inventory
+
+var hover_effect := false:
+	set(val):
+		if val == hover_effect: return
+		hover_effect = val
+		
+		var mat := ShaderMaterial.new()
+		mat.shader = hsva_modulate_shader
+		
+		material = mat if val else null
+
+var pickable := false
+var accepts_input := false
+var shift_inventory: Inventory
 
 var count_label: Label
+var hover_effect_active := false
+
+var hsva_modulate: Vector4:
+	get:
+		if not (hover_effect and global.control_hovered(self)): return Vector4(1, 1, 1, 1)
+		if not stack: return Vector4(1, 1, 2, 1)
+		return Vector4(1, 1, 1.3, 1)
+
+func _init(stack: ItemStack = null, inventory: Inventory = null, config := ItemDisplayConfig.new()) -> void:
+	self.stack = stack
+	self.inventory = inventory
+	self.config = config
+
+func apply_config() -> void:
+	pickable = config.pickable
+	accepts_input = config.accepts_input
+	hover_effect = config.hover_effect
+	shift_inventory = config.shift_inventory
 
 func _ready() -> void:
 	count_label = Label.new()
@@ -53,7 +91,7 @@ func quick_transfer(half := false) -> void:
 	if inventory: inventory.take_item(ItemStack.new(stack.item_id, amount_added))
 
 func drop_item(half := false) -> void:
-	if not droppable: return
+	if not accepts_input: return
 	
 	var half_stack: ItemStack = ItemStack.new(global.item_on_mouse.item_id, ceil(global.item_on_mouse.count / 2.0)) if half else global.item_on_mouse
 	
@@ -79,3 +117,11 @@ func drop_item(half := false) -> void:
 func swap_with_mouse(half := false) -> void:
 	if global.item_on_mouse: return drop_item(half)
 	if stack: put_on_mouse(half)
+
+func update_hover_effect() -> void:
+	if not material: return
+	
+	material.set_shader_parameter("modulate", hsva_modulate)
+
+func _process(delta: float) -> void:
+	update_hover_effect()

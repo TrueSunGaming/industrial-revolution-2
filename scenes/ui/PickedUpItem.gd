@@ -5,4 +5,5 @@ func update_pickup() -> void:
 	stack = global.item_on_mouse
 
 func _process(delta: float) -> void:
+	super(delta)
 	global_position = get_global_mouse_position() - texture.get_size() / 2

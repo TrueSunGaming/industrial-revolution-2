@@ -22,13 +22,13 @@ func _process(delta: float) -> void:
 	progress_bar.custom_minimum_size.x = progress_bar_container.size.x - recipe_display.size.x - 4
 	input_display.inventory = machine.input_inventory
 	output_display.inventory = machine.output_inventory
-	player_inventory.shift_inventory = machine.input_inventory
+	player_inventory.config.shift_inventory = machine.input_inventory
 	title = tile_data.name
 
 func _ready() -> void:
 	player_inventory.inventory = refs.player.inventory
-	input_display.shift_inventory = refs.player.inventory
-	output_display.shift_inventory = refs.player.inventory
+	input_display.config.shift_inventory = refs.player.inventory
+	output_display.config.shift_inventory = refs.player.inventory
 
 func _on_recipe_display_set_recipe(id: String) -> void:
 	machine.recipe_id = id

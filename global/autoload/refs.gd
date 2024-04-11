@@ -8,7 +8,7 @@ var main: Main
 var factory: Factory
 var world_container: WorldContainer
 var hover_indicator: HoverIndicator
-var blank_texture := global.create_blank_texture(Vector2i(32, 32), Color(0, 0, 0, 0.3))
+var blank_texture := global.create_blank_texture(Vector2i(32, 32), Color("#242424"))
 
 const preloaded = [
 	# TileEntityData

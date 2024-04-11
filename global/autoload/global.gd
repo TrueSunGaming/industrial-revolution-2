@@ -2,6 +2,7 @@ extends Node
 
 const alert_scene: PackedScene = preload("res://scenes/ui/dialog/Alert.tscn")
 const confirm_scene: PackedScene = preload("res://scenes/ui/dialog/Confirm.tscn")
+const white_blank32: CompressedTexture2D = preload("res://global/textures/blank32x32.png")
  
 class ConfirmResult extends RefCounted:
 	signal closed(result)
@@ -176,9 +177,11 @@ func sort_children(parent: Node, sort_function: Callable) -> void:
 	for i in sorted: parent.add_child(i)
 
 func create_blank_texture(size: Vector2i, color := Color(0, 0, 0, 0)) -> ImageTexture:
-	var data: PackedByteArray = []
-	for i in range(size.x * size.y): data.append_array([color.r8, color.g8, color.b8, color.a8])
-	return ImageTexture.create_from_image(Image.create_from_data(size.x, size.y, false, Image.FORMAT_RGBA8, data))
+	var img := Image.load_from_file("res://global/textures/blank32x32.png")
+	img.convert(Image.FORMAT_RGBA8)
+	img.resize(size.x, size.y)
+	img.fill(color)
+	return ImageTexture.create_from_image(img)
 
 func start_debug_timer() -> void:
 	debug_timer = Time.get_ticks_usec()
@@ -188,3 +191,6 @@ func end_debug_timer() -> void:
 
 func to_bool(val: Variant) -> bool:
 	return not not val
+
+func control_hovered(control: Control) -> bool:
+	return control.get_global_rect().has_point(control.get_global_mouse_position())

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccicr25uf12bw"]
+[gd_scene load_steps=15 format=3 uid="uid://ccicr25uf12bw"]
 
 [ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="1_7d8t5"]
 [ext_resource type="Script" path="res://scenes/ui/inventory/machine/MachineUI.gd" id="2_asabe"]
@@ -6,6 +6,15 @@
 [ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/fonts/Roboto-Regular.ttf" id="3_p68w3"]
 [ext_resource type="StyleBox" uid="uid://cgcf884o18l5q" path="res://scenes/ui/ScrollContainerStyleBox.tres" id="4_k0fam"]
 [ext_resource type="Script" path="res://scenes/ui/inventory/RecipeDisplay.gd" id="6_2u4ex"]
+[ext_resource type="Script" path="res://scenes/ui/inventory/InventoryDisplayConfig.gd" id="6_nlmln"]
+
+[sub_resource type="Resource" id="Resource_vt00i"]
+script = ExtResource("6_nlmln")
+sort_mode = 2
+extra_rows = 1
+hover_effect = true
+pickable = true
+accepts_input = true
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4hrmn"]
 
@@ -25,6 +34,22 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="Resource" id="Resource_bbm00"]
+script = ExtResource("6_nlmln")
+sort_mode = 2
+extra_rows = 1
+hover_effect = true
+pickable = true
+accepts_input = true
+
+[sub_resource type="Resource" id="Resource_78ukb"]
+script = ExtResource("6_nlmln")
+sort_mode = 2
+extra_rows = 1
+hover_effect = true
+pickable = true
+accepts_input = false
 
 [node name="UIPanel" instance=ExtResource("1_7d8t5")]
 script = ExtResource("2_asabe")
@@ -52,9 +77,7 @@ vertical_scroll_mode = 2
 layout_mode = 2
 columns = 10
 script = ExtResource("2_plmre")
-sort_mode = "Quantity"
-items_pickable = true
-items_droppable = true
+config = SubResource("Resource_vt00i")
 
 [node name="VSeparator" type="VSeparator" parent="PanelContent/HBoxContainer" index="1"]
 layout_mode = 2
@@ -105,9 +128,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 columns = 10
 script = ExtResource("2_plmre")
-sort_mode = "Quantity"
-items_pickable = true
-items_droppable = true
+config = SubResource("Resource_bbm00")
 
 [node name="Output" type="VBoxContainer" parent="PanelContent/HBoxContainer/VBoxContainer2/TabContainer" index="3"]
 visible = false
@@ -117,8 +138,6 @@ layout_mode = 2
 layout_mode = 2
 columns = 10
 script = ExtResource("2_plmre")
-sort_mode = "Quantity"
-accepts_input = false
-items_pickable = true
+config = SubResource("Resource_78ukb")
 
 [connection signal="set_recipe" from="PanelContent/HBoxContainer/VBoxContainer2/TabContainer/Craft/HBoxContainer/RecipeDisplay" to="." method="_on_recipe_display_set_recipe"]
