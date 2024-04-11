@@ -12,6 +12,7 @@ static var list := {}
 @export var icon_override: Texture2D
 @export var tags: Array[String] = []
 @export var craft_time: int
+@export var fuel_consumption: float
 
 var name: String:
 	get:

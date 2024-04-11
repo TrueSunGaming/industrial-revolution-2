@@ -16,6 +16,7 @@ static var list := {}
 @export_multiline var description: String
 @export var type: Type
 @export var tags: Array[String] = []
+@export var fuel_value: float
 
 static func get_item(id: String) -> Item:
 	return list.get(id)
@@ -30,10 +31,17 @@ func satisfies_selector(selector: String) -> bool:
 	if parts.has("*"): return true
 	if parts.has("*item") and type == Type.ITEM: return true
 	if parts.has("*fluid") and type == Type.FLUID: return true
+	if fuel_value > 0:
+		if parts.has("*fuel"): return true
+		if parts.has("*item_fuel") and type == Type.ITEM: return true
+		if parts.has("*fluid_fuel") and type == Type.FLUID: return true
 	
 	for i in parts:
 		if i == id: return true
 		if i.begins_with("#") and tags.has(i.trim_prefix("#")): return true
+		if i.begins_with("$i") and type == Type.ITEM and fuel_value >= float(i.trim_prefix("$i")): return true
+		if i.begins_with("$f") and type == Type.FLUID and fuel_value >= float(i.trim_prefix("$f")): return true
+		if i.begins_with("$") and fuel_value >= float(i.trim_prefix("$")): return true
 	
 	return false
 
