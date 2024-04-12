@@ -5,6 +5,8 @@ signal tile_removed(id: int)
 signal tile_render(id: int)
 signal tick(delta: float)
 
+static var tei_factory := TileEntityInstanceFactory.new()
+
 @export var tile_size: Vector2
 
 @export var tiles: Array[TileEntityInstance]:
@@ -40,12 +42,18 @@ func place_tile(tile: TileEntityInstance) -> bool:
 	
 	return true
 
-func tile_at(tile: Vector2i) -> TileEntityInstance:
+func place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> bool:
+	var instance := tei_factory.generate_positioned(item_id, position, rotation)
+	if not instance: return false
+	
+	return place_tile(instance)
+
+func tile_at(tile: Vector2) -> TileEntityInstance:
 	var filtered := tiles.filter(func (v: TileEntityInstance): return v.placement_rect.has_point(tile))
 	
 	return filtered[0] if filtered.size() > 0 else null
 
-func remove_tile_at(tile: Vector2i) -> TileEntityInstance:
+func remove_tile_at(tile: Vector2) -> TileEntityInstance:
 	var entity := tile_at(tile)
 	if entity: entity.remove_from_world()
 	
@@ -56,3 +64,6 @@ func process_tick(delta: float) -> void:
 
 func tile_to_world(tile: Vector2) -> Vector2:
 	return tile * tile_size - tile_size / 2
+
+func world_to_tile(world: Vector2) -> Vector2:
+	return world / tile_size + Vector2(0.5, 0.5)
