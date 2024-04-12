@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://buxoff00exjty" path="res://scenes/player/player.svg" id="1_owmsa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oki5b"]
-radius = 32.0
+radius = 31.9
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 2
