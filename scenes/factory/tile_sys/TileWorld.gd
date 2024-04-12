@@ -48,6 +48,23 @@ func place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> bool:
 	
 	return place_tile(instance)
 
+func place_held_item() -> bool:
+	if not global.item_on_mouse: return false
+	
+	var success := place_tile_id(
+		global.item_on_mouse.item_id,
+		world_to_tile(refs.world_container.get_local_mouse_position()).floor()
+	)
+	
+	if not success: return false
+	
+	global.item_on_mouse.count -= 1
+	if global.item_on_mouse.count < 1:
+		global.item_on_mouse = null
+		global.item_on_mouse_original_inventory = null
+	
+	return true
+
 func tile_at(tile: Vector2) -> TileEntityInstance:
 	var filtered := tiles.filter(func (v: TileEntityInstance): return v.placement_rect.has_point(tile))
 	

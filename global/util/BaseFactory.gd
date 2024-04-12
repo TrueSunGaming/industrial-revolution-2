@@ -7,3 +7,6 @@ func generate(key: String) -> Variant:
 
 func register(key: String, value: Variant) -> void:
 	lookup[key] = value
+
+func can_generate(key: String) -> bool:
+	return lookup.has(key)

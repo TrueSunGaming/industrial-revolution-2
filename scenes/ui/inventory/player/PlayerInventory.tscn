@@ -1,9 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpko3avusdf3f"]
+[gd_scene load_steps=7 format=3 uid="uid://dpko3avusdf3f"]
 
 [ext_resource type="PackedScene" uid="uid://cow11y4t4rnws" path="res://scenes/ui/UIPanel.tscn" id="1_l7q7i"]
 [ext_resource type="Script" path="res://scenes/ui/inventory/player/PlayerInventory.gd" id="2_hcftd"]
 [ext_resource type="Script" path="res://scenes/ui/inventory/InventoryDisplay.gd" id="2_q8up7"]
 [ext_resource type="StyleBox" uid="uid://cgcf884o18l5q" path="res://scenes/ui/ScrollContainerStyleBox.tres" id="3_f171c"]
+[ext_resource type="Script" path="res://scenes/ui/inventory/InventoryDisplayConfig.gd" id="5_4ij1n"]
+
+[sub_resource type="Resource" id="Resource_3rftu"]
+script = ExtResource("5_4ij1n")
+sort_mode = 2
+extra_rows = 1
+hover_effect = true
+pickable = true
+accepts_input = true
 
 [node name="UIPanel" instance=ExtResource("1_l7q7i")]
 script = ExtResource("2_hcftd")
@@ -21,6 +30,4 @@ vertical_scroll_mode = 2
 layout_mode = 2
 columns = 10
 script = ExtResource("2_q8up7")
-sort_mode = "Quantity"
-items_pickable = true
-items_droppable = true
+config = SubResource("Resource_3rftu")

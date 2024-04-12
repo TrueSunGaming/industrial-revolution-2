@@ -11,6 +11,12 @@ var hovered_tiles: Array[TileEntityInstance]:
 			return v.render_rect.has_point(get_local_mouse_position())
 		)
 
+var can_place: bool:
+	get:
+		if hovered_tiles.size() > 0: return false
+		if not global.item_on_mouse: return false
+		return TileWorld.tei_factory.can_generate(global.item_on_mouse.item_id)
+
 func _ready() -> void:
 	refs.world_container = self
 	last_tick = Time.get_unix_time_from_system()
@@ -58,10 +64,19 @@ func render_tile(id: int) -> void:
 	
 	add_child(instance.node_ref)
 
+func handle_hover_click() -> void:
+	for i in hovered_tiles:
+		i.on_click()
+
+func handle_interact() -> void:
+	if hovered_tiles.size() > 0: handle_hover_click()
+
+func handle_place() -> void:
+	world.place_held_item()
+
 func _input(event: InputEvent) -> void:
 	if refs.ui.panel_visible: return
 	if refs.factory.disabled: return
 	
-	if Input.is_action_just_released("interact"):
-		for i in hovered_tiles:
-			i.on_click()
+	if Input.is_action_just_released("place") and can_place: return handle_place()
+	if Input.is_action_just_released("interact") and hovered_tiles.size() > 0: return handle_interact()
