@@ -7,6 +7,14 @@ signal tick(delta: float)
 
 static var tei_factory := TileEntityInstanceFactory.new()
 
+enum PlaceStatus {
+	OK,
+	ERROR_UNKNOWN,
+	ERROR_NOT_FOUND,
+	ERROR_EXISTING_TILE,
+	ERROR_PLAYER
+}
+
 @export var tile_size: Vector2
 
 @export var tiles: Array[TileEntityInstance]:
@@ -30,40 +38,40 @@ func _init() -> void:
 		render_buffer.push_back(id)
 	)
 
-func place_tile(tile: TileEntityInstance) -> bool:
+func place_tile(tile: TileEntityInstance) -> PlaceStatus:
 	if tiles.any(func (v: TileEntityInstance):
 		return v.placement_rect.intersects(tile.placement_rect)
-	): return false
+	): return PlaceStatus.ERROR_EXISTING_TILE
 	
 	tiles.push_back(tile)
 	tile.world = self
 	
 	tile_placed.emit(tile.id, tiles.size() - 1)
 	
-	return true
+	return PlaceStatus.OK
 
-func place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> bool:
+func place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> PlaceStatus:
 	var instance := tei_factory.generate_positioned(item_id, position, rotation)
-	if not instance: return false
+	if not instance: return PlaceStatus.ERROR_NOT_FOUND
 	
 	return place_tile(instance)
 
-func place_held_item() -> bool:
-	if not global.item_on_mouse: return false
+func place_held_item() -> PlaceStatus:
+	if not global.item_on_mouse: return PlaceStatus.ERROR_NOT_FOUND
 	
-	var success := place_tile_id(
+	var status := place_tile_id(
 		global.item_on_mouse.item_id,
 		world_to_tile(refs.world_container.get_local_mouse_position()).floor()
 	)
 	
-	if not success: return false
+	if status != PlaceStatus.OK: return status
 	
 	global.item_on_mouse.count -= 1
 	if global.item_on_mouse.count < 1:
 		global.item_on_mouse = null
 		global.item_on_mouse_original_inventory = null
 	
-	return true
+	return PlaceStatus.OK
 
 func tile_at(tile: Vector2) -> TileEntityInstance:
 	var filtered := tiles.filter(func (v: TileEntityInstance): return v.placement_rect.has_point(tile))
