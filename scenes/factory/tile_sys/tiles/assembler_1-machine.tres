@@ -6,3 +6,4 @@
 script = ExtResource("1_lkk1e")
 tile_id = "assembler_1"
 crafting_rate_multi = 1.0
+recipe_selector = "*"

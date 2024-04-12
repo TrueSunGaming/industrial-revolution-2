@@ -8,12 +8,12 @@ enum Type {
 static var list := {}
 
 @export var name: String
+@export_multiline var description: String
 @export var id: String:
 	set(val):
 		id = val
 		list[id] = self
 @export var texture: Texture2D
-@export_multiline var description: String
 @export var type: Type
 @export var tags: Array[String] = []
 @export var fuel_value: float

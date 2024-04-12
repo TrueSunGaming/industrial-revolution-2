@@ -17,21 +17,34 @@ const recipe_select_scene: PackedScene = preload("res://scenes/ui/inventory/mach
 		texture = recipe.icon if recipe else refs.blank_texture
 		tooltip_text = recipe.name if recipe else "No recipe"
 
+@export var valid_recipe_selector := "*"
+
 var recipe: Recipe:
 	get:
 		return Recipe.get_recipe(recipe_id)
 
 var selector_open := false
 
+func open_selector() -> Variant:
+	if selector_open: return null
+	
+	selector_open = true
+	
+	var selector := recipe_select_scene.instantiate()
+	selector.valid_recipe_selector = valid_recipe_selector
+	var result: Variant = await global.show_data_panel(selector)
+	
+	selector_open = false
+	
+	return result
+
 func _gui_input(event: InputEvent) -> void:
 	if not Input.is_action_just_released("interact"): return
 	clicked.emit()
 	
-	if selector_open or not opens_selector: return
+	if not opens_selector: return
 	
-	selector_open = true
-	var result: Variant = await global.show_data_panel(recipe_select_scene.instantiate())
-	selector_open = false
+	var result: Variant = await open_selector()
 	
 	if result is String: set_recipe.emit(result)
 

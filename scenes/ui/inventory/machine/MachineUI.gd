@@ -24,6 +24,7 @@ func _process(delta: float) -> void:
 	output_display.inventory = machine.output_inventory
 	player_inventory.config.shift_inventory = machine.input_inventory
 	title = tile_data.name
+	recipe_display.valid_recipe_selector = machine.machine_data.recipe_selector
 
 func _ready() -> void:
 	player_inventory.inventory = refs.player.inventory
