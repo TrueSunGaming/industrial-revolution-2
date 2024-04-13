@@ -13,6 +13,8 @@ var hovered_tiles: Array[TileEntityInstance]:
 
 var can_place: bool:
 	get:
+		if refs.ui.panel_visible: return false
+		if refs.factory.disabled: return false
 		if hovered_tiles.size() > 0: return false
 		if not global.item_on_mouse: return false
 		return TileWorld.tei_factory.can_generate(global.item_on_mouse.item_id)
@@ -41,6 +43,8 @@ func _process(delta: float) -> void:
 			break
 	
 	if hovered_tiles.size() < 1: global.show_hover_indicator(false)
+	
+	if Input.is_action_pressed("place") and can_place: return handle_place()
 
 func should_free_tile_node(instance: TileEntityInstance) -> bool:
 	if not instance.node_ref: return false
@@ -96,6 +100,5 @@ func _input(event: InputEvent) -> void:
 	if refs.ui.panel_visible: return
 	if refs.factory.disabled: return
 	
-	if Input.is_action_just_released("place") and can_place: return handle_place()
-	if Input.is_action_just_released("interact") and hovered_tiles.size() > 0: return handle_interact()
-	if Input.is_action_just_pressed("pipette"): return handle_pipette()
+	if Input.is_action_just_released("interact") and not can_place: handle_interact()
+	if Input.is_action_just_pressed("pipette"): handle_pipette()
