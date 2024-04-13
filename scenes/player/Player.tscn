@@ -11,8 +11,10 @@ z_index = 2
 script = ExtResource("1_11xrv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
+texture_filter = 2
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_owmsa")
+region_rect = Rect2(0, 0, 100, 100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_oki5b")
