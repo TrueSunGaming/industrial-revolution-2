@@ -25,5 +25,5 @@ func _process(delta: float) -> void:
 	
 	scale = tile_size / texture.get_size() / parallax_scaling
 	global_position = cam_pos
-	region_rect.size = get_viewport_rect().size / next_frame_zoom / scale
+	region_rect.size = 3 * get_viewport_rect().size / next_frame_zoom / scale
 	region_rect.position = (cam_pos + tile_offset) / scale / parallax_divisor / parallax_scaling - region_rect.size / 2
