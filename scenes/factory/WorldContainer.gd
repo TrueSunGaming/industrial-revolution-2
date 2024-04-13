@@ -74,9 +74,28 @@ func handle_interact() -> void:
 func handle_place() -> void:
 	world.place_held_item()
 
+func handle_pipette() -> void:
+	global.clear_hand()
+	
+	if hovered_tiles.size() < 1: return
+	
+	for i in hovered_tiles:
+		if not i.tile_data.item_id: continue
+		
+		var count := refs.player.inventory.get_item_count(i.tile_data.item_id)
+		if count < 1: continue
+		
+		global.item_on_mouse = ItemStack.new(i.tile_data.item_id, count)
+		global.item_on_mouse_original_inventory = refs.player.inventory
+		
+		refs.player.inventory.take_item(global.item_on_mouse)
+		
+		break
+
 func _input(event: InputEvent) -> void:
 	if refs.ui.panel_visible: return
 	if refs.factory.disabled: return
 	
 	if Input.is_action_just_released("place") and can_place: return handle_place()
 	if Input.is_action_just_released("interact") and hovered_tiles.size() > 0: return handle_interact()
+	if Input.is_action_just_pressed("pipette"): return handle_pipette()

@@ -12,3 +12,4 @@ placement_size = Vector2(3, 3)
 rotation_step = 90.0
 scene = ExtResource("1_ggbn3")
 tags = Array[String](["3x3", "machine", "assembler", "tier1"])
+item_id = "assembler_1"

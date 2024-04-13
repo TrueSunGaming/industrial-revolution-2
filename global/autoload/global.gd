@@ -193,3 +193,16 @@ func to_bool(val: Variant) -> bool:
 
 func control_hovered(control: Control) -> bool:
 	return control.get_global_rect().has_point(control.get_global_mouse_position())
+
+func clear_hand() -> void:
+	if not global.item_on_mouse: return
+	if not global.item_on_mouse_original_inventory: return
+	
+	var amount_added := global.item_on_mouse_original_inventory.add_item(global.item_on_mouse)
+	
+	if amount_added == global.item_on_mouse.count:
+		global.item_on_mouse = null
+		global.item_on_mouse_original_inventory = null
+		return
+	
+	global.item_on_mouse.count -= amount_added

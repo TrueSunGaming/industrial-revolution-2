@@ -12,6 +12,7 @@ static var list := {}
 @export_range(0, 360) var rotation_step: float
 @export var scene: PackedScene
 @export var tags: Array[String] = []
+@export var item_id: String
 
 static func get_tile_data(id: String) -> TileEntityData:
 	return list.get(id)
