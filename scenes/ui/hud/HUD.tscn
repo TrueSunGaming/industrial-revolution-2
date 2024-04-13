@@ -16,6 +16,7 @@ mouse_filter = 1
 script = ExtResource("1_0ppp0")
 
 [node name="QuestHUD" parent="." instance=ExtResource("2_wpqbp")]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
