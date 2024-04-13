@@ -78,11 +78,13 @@ func tile_at(tile: Vector2) -> TileEntityInstance:
 	
 	return filtered[0] if filtered.size() > 0 else null
 
-func remove_tile_at(tile: Vector2) -> TileEntityInstance:
+func remove_tile_at(tile: Vector2, free_tile := false) -> TileEntityInstance:
 	var entity := tile_at(tile)
-	if entity: entity.remove_from_world()
+	if not entity: return null
 	
-	return entity
+	entity.remove_from_world(free_tile)
+	
+	return null if free_tile else entity
 
 func process_tick(delta: float) -> void:
 	tick.emit(delta)

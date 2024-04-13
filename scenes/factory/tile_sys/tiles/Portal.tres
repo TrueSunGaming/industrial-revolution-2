@@ -12,3 +12,5 @@ placement_size = Vector2(5, 5)
 rotation_step = 0.0
 scene = ExtResource("1_yivto")
 tags = Array[String]([])
+item_id = ""
+break_time = -1.0

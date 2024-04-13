@@ -13,6 +13,11 @@ static var list := {}
 @export var scene: PackedScene
 @export var tags: Array[String] = []
 @export var item_id: String
+@export var break_time: float = 30
+
+var breakable: bool:
+	get:
+		return break_time >= 0
 
 static func get_tile_data(id: String) -> TileEntityData:
 	return list.get(id)

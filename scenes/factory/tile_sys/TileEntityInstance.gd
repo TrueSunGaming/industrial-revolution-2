@@ -88,13 +88,24 @@ func _init() -> void:
 static func get_tile(id: int) -> TileEntityInstance:
 	return list.get(id)
 
-func remove_from_world() -> void:
+func remove_from_world(free_tile := false) -> void:
 	if not world: return
 	
-	var idx := world.tiles.find(func (v: TileEntityInstance): return v.id == id)
-	world.tiles.remove_at(idx)
+	var idx := -1
 	
+	for i in range(world.tiles.size()):
+		if world.tiles[i].id != id: continue
+		idx = i
+		break
+	
+	if idx == -1: return
+	
+	world.tiles.remove_at(idx)
 	world.tile_removed.emit(id)
+	clear_node_ref()
+	
+	if free_tile:
+		list.erase(id)
 
 func relay_tick(delta: float) -> void:
 	world_tick.emit(delta)
@@ -103,6 +114,12 @@ func relay_tick(delta: float) -> void:
 
 func update_position() -> void:
 	if node_ref: node_ref.position = render_position
+
+func clear_node_ref() -> void:
+	if not node_ref: return
+	
+	node_ref.queue_free()
+	node_ref = null
 
 # template for inherited classes
 func on_tick(_delta: float) -> void:
