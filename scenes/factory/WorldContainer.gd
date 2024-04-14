@@ -74,7 +74,8 @@ func _process(delta: float) -> void:
 	for i in hovered_tiles:
 		global.set_hover_indicator_id(i.id)
 		break
-		
+	
+	check_pipette()
 	if Input.is_action_pressed("place") and can_place: return handle_place()
 
 func should_free_tile_node(instance: TileEntityInstance) -> bool:
@@ -112,12 +113,15 @@ func handle_place() -> void:
 	world.place_held_item()
 
 func handle_pipette() -> void:
+	var held_item_id = global.item_on_mouse.item_id if global.item_on_mouse else ""
+	
 	global.clear_hand()
 	
 	if hovered_tiles.size() < 1: return
 	
 	for i in hovered_tiles:
 		if not i.tile_data.item_id: continue
+		if i.tile_data.item_id == held_item_id: continue
 		
 		var count := refs.player.inventory.get_item_count(i.tile_data.item_id)
 		if count < 1: continue
@@ -129,9 +133,13 @@ func handle_pipette() -> void:
 		
 		break
 
+func check_pipette() -> void:
+	if refs.ui.panel_visible: return
+	if refs.factory.disabled: return
+	if Input.is_action_just_pressed("pipette"): handle_pipette()
+
 func _input(event: InputEvent) -> void:
 	if refs.ui.panel_visible: return
 	if refs.factory.disabled: return
 	
 	if Input.is_action_just_pressed("interact") and can_interact: handle_interact()
-	if Input.is_action_just_pressed("pipette"): handle_pipette()
