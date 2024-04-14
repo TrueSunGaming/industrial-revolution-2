@@ -20,6 +20,12 @@ var can_place: bool:
 		if not global.item_on_mouse: return false
 		return TileWorld.tei_factory.can_generate(global.item_on_mouse.item_id)
 
+var can_interact: bool:
+	get:
+		if can_place: return false
+		if global.item_on_mouse: return false
+		return hovered_tiles.size() > 0
+
 var should_reset_break: bool:
 	get:
 		var hovered := hovered_tiles
@@ -127,5 +133,5 @@ func _input(event: InputEvent) -> void:
 	if refs.ui.panel_visible: return
 	if refs.factory.disabled: return
 	
-	if Input.is_action_just_released("interact") and not can_place: handle_interact()
+	if Input.is_action_just_pressed("interact") and can_interact: handle_interact()
 	if Input.is_action_just_pressed("pipette"): handle_pipette()
