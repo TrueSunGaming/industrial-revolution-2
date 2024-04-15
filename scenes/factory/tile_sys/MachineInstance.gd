@@ -25,14 +25,10 @@ var machine_data: MachineData:
 		return MachineData.get_machine_data(data_id)
 
 func add_item(item: ItemStack) -> int:
-	input_inventory.add_item(item)
-	
-	return 0
+	return input_inventory.add_item(item)
 
 func remove_item(item: ItemStack) -> bool:
-	output_inventory.take_item(item)
-	
-	return false
+	return output_inventory.take_item(item)
 
 func on_tick(delta: float) -> void:
 	if not recipe or not input_inventory.has_atleast_all_ingredients(recipe.ingredients):
