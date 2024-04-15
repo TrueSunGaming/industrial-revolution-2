@@ -65,6 +65,7 @@ func simplify(silent := false) -> void:
 	if not silent: items_changed.emit()
 
 func item_allowed(item: Item) -> bool:
+	if blacklist.has(item.id) or (whitelist.size() > 0 and not whitelist.has(item.id)): return false
 	if allow == AllowType.ITEM_ONLY: return item.type == Item.Type.ITEM
 	if allow == AllowType.FLUID_ONLY: return item.type == Item.Type.FLUID
 	return true
@@ -97,7 +98,7 @@ func get_selector_count(selector: String) -> int:
 	)
 
 func add_item(item: ItemStack, silent := false) -> int:
-	if blacklist.has(item.item_id) or (whitelist.size() > 0 and not whitelist.has(item.item_id)): return 0
+	if not item_allowed(item.item): return 0
 	
 	var limit_stack: Array[ItemStack] = limits.filter(func (v: ItemStack): return v.item_id == item.item_id)
 	var max_allowed: int = limit_stack[0].count if limit_stack.size() > 0 else -1
