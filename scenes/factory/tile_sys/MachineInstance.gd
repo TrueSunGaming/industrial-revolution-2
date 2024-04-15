@@ -24,14 +24,17 @@ var machine_data: MachineData:
 	get:
 		return MachineData.get_machine_data(data_id)
 
-func add_item(item: ItemStack) -> int:
-	return input_inventory.add_item(item)
+func get_input() -> Inventory:
+	return input_inventory
 
-func remove_item(item: ItemStack) -> bool:
-	return output_inventory.take_item(item)
+func get_output() -> Inventory:
+	return output_inventory
+
+func get_primary_inventory() -> Inventory:
+	return input_inventory
 
 func on_tick(delta: float) -> void:
-	if not recipe or not input_inventory.has_atleast_all_ingredients(recipe.ingredients):
+	if not recipe or not input.has_atleast_all_ingredients(recipe.ingredients):
 		craft_progress = 0
 		return
 	
@@ -43,7 +46,7 @@ func on_tick(delta: float) -> void:
 	craft_progress = fmod(craft_progress, recipe.craft_time)
 
 func craft() -> void:
-	var success := input_inventory.perform_recipe_id(recipe_id, output_inventory)
+	var success := input.perform_recipe_id(recipe_id, output)
 	if not success: return
 
 func on_click() -> void:

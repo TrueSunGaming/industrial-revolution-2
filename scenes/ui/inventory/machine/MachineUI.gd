@@ -20,9 +20,9 @@ func _process(delta: float) -> void:
 	progress_bar.value = 100 * machine.craft_progress / machine.recipe.craft_time if machine.recipe else 0
 	recipe_display.recipe_id = machine.recipe_id
 	progress_bar.custom_minimum_size.x = progress_bar_container.size.x - recipe_display.size.x - 4
-	input_display.inventory = machine.input_inventory
-	output_display.inventory = machine.output_inventory
-	player_inventory.config.shift_inventory = machine.input_inventory
+	input_display.inventory = machine.input
+	output_display.inventory = machine.output
+	player_inventory.config.shift_inventory = machine.input
 	title = tile_data.name
 	recipe_display.valid_recipe_selector = machine.machine_data.recipe_selector
 
