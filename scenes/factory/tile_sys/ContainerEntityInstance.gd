@@ -43,3 +43,6 @@ func transfer_item_to(item: ItemStack, other: ContainerEntityInstance) -> int:
 
 func transfer_item_from(item: ItemStack, other: ContainerEntityInstance) -> int:
 	return other.transfer_item_to(item, self)
+
+static func tranfer_item(item: ItemStack, origin: ContainerEntityInstance, destination: ContainerEntityInstance) -> int:
+	return origin.transfer_item_to(item, destination)
