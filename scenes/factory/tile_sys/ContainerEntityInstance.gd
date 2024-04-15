@@ -34,15 +34,16 @@ func output_has_atleast(item: ItemStack) -> bool:
 	return output.has_atleast(item)
 
 func transfer_item_to(item: ItemStack, other: ContainerEntityInstance) -> int:
-	if not output_has_atleast(item): return 0
-	
-	var added := other.input.add_item(item)
-	output.remove_item(ItemStack.new(item.item_id, added))
-	
-	return added
+	return output.transfer_item_to(item, other.input)
+
+func transfer_items_to(items: Array[ItemStack], other: ContainerEntityInstance) -> Dictionary:
+	return output.transfer_items_to(items, other.input)
 
 func transfer_item_from(item: ItemStack, other: ContainerEntityInstance) -> int:
-	return other.transfer_item_to(item, self)
+	return input.transfer_item_from(item, other.output)
+
+func transfer_items_from(items: Array[ItemStack], other: ContainerEntityInstance) -> Dictionary:
+	return input.transfer_items_from(items, other.output)
 
 static func tranfer_item(item: ItemStack, origin: ContainerEntityInstance, destination: ContainerEntityInstance) -> int:
 	return origin.transfer_item_to(item, destination)

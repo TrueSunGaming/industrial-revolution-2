@@ -194,3 +194,34 @@ func perform_recipe_id(id: String, output_inventory := self, silent := false) ->
 		return false
 	
 	return perform_recipe(recipe, output_inventory, silent)
+
+func transfer_item_to(item: ItemStack, other: Inventory) -> int:
+	if not has_atleast(item): return 0
+	
+	var added := other.add_item(item)
+	take_item(ItemStack.new(item.item_id, added))
+	
+	return added
+
+func transfer_items_to(stacks: Array[ItemStack], other: Inventory) -> Dictionary:
+	var res := {}
+	
+	if not has_atleast_all(stacks):
+		for i in stacks: res[i.item_id] = 0
+		return res
+	
+	for i in stacks: res[i.item_id] = transfer_item_to(i, other)
+	
+	return res
+
+func transfer_item_from(item: ItemStack, other: Inventory) -> int:
+	return other.transfer_item_to(item, self)
+
+func transfer_items_from(stacks: Array[ItemStack], other: Inventory) -> Dictionary:
+	return other.transfer_items_to(stacks, self)
+
+static func transfer_item(item: ItemStack, origin: Inventory, destination: Inventory) -> int:
+	return origin.transfer_item_to(item, destination)
+
+static func transfer_items(stacks: Array[ItemStack], origin: Inventory, destination: Inventory) -> Dictionary:
+	return origin.transfer_items_to(stacks, destination)
