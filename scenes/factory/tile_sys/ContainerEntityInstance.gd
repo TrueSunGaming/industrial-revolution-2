@@ -47,3 +47,6 @@ func transfer_items_from(items: Array[ItemStack], other: ContainerEntityInstance
 
 static func tranfer_item(item: ItemStack, origin: ContainerEntityInstance, destination: ContainerEntityInstance) -> int:
 	return origin.transfer_item_to(item, destination)
+
+static func tranfer_items(items: Array[ItemStack], origin: ContainerEntityInstance, destination: ContainerEntityInstance) -> Dictionary:
+	return origin.transfer_items_to(items, destination)
