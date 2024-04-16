@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://ihwc63r8puvr"]
+
+[ext_resource type="Texture2D" uid="uid://d2dmmimfm3pkq" path="res://global/textures/belt_straight.svg" id="1_u6f4v"]
+
+[sub_resource type="Curve2D" id="Curve2D_ryryu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 64, 16)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mlmvi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 48, 0, 0, 0, 0, 64, 48)
+}
+point_count = 2
+
+[node name="BeltData" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_u6f4v")
+centered = false
+
+[node name="PathLeft" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ryryu")
+
+[node name="PathRight" type="Path2D" parent="."]
+curve = SubResource("Curve2D_mlmvi")
