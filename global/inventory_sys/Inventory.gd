@@ -58,9 +58,11 @@ var counts: Dictionary:
 func simplify(silent := false) -> void:
 	if not needs_simplify: return
 	
+	var original_counts := counts
+	
 	items = []
-	for i in counts.keys():
-		if counts[i] > 0: items.push_back(ItemStack.new(i, counts[i]))
+	for i in original_counts.keys():
+		if original_counts[i] > 0: items.push_back(ItemStack.new(i, original_counts[i]))
 	
 	if not silent: items_changed.emit()
 
