@@ -3,6 +3,7 @@ class_name TileEntityInstance extends Resource
 signal world_attached(world: TileWorld)
 signal world_removed
 signal world_tick(delta: float)
+signal click
 
 static var next_id := 0
 static var list := {}
@@ -154,16 +155,16 @@ func get_tile_from_angle(deg: float) -> TileEntityInstance:
 	# https://stackoverflow.com/questions/1343346/calculate-a-vector-from-the-center-of-a-square-to-edge-based-on-radius/1343531#1343531
 	var magnitude := rect.x / (2 * abs_cos) if rect.x * abs_sin <= rect.y * abs_cos else rect.y / (2 * abs_sin)
 	
-	return get_tile_from_offset(Vector2(magnitude, 0).rotated(rad))
+	# multiplying by 1.00001 to fix border problems
+	var pos := position + rect / 2 + Vector2(magnitude * 1.00001, 0).rotated(rad)
+	
+	return get_tile_from_offset(pos - position)
 
-# template for inherited classes
 func on_tick(_delta: float) -> void:
 	pass
 
-# template for inherited classes
 func on_click() -> void:
 	pass
 
-# template for inherited classes
 func on_node_ref_change() -> void:
 	pass

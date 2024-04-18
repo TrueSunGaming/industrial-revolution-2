@@ -14,7 +14,7 @@ class_name HoverIndicator extends Node2D
 				printerr("Failed to focus HoverIndicator on " + str(instance_id) + ": Instance not found")
 			return
 		
-		rect = Rect2(instance.render_position, instance.placement_rect.size * refs.world_container.world.tile_size)
+		rect = instance.render_rect
 
 @export var rect: Rect2:
 	set(val):

@@ -34,6 +34,7 @@ func update_data_node() -> void:
 
 func on_instance_ready() -> void:
 	instance.world_tick.connect(update_turn_type)
+	instance.click.connect(on_click)
 
 func update_turn_type(_delta: float) -> void:
 	if not instance:
@@ -41,11 +42,16 @@ func update_turn_type(_delta: float) -> void:
 		return
 	
 	var incoming_back: bool = instance.backward_tile and instance.backward_tile.rotation == instance.rotation
-	var incoming_left: bool = instance.left_tile and instance.left_tile.rotation == instance.rotation + 90
-	var incoming_right: bool = instance.right_tile and instance.right_tile.rotation == instance.rotation - 90
+	var incoming_left: bool = instance.left_tile and instance.left_tile.rotation == global.add_deg(instance.rotation, 90)
+	var incoming_right: bool = instance.right_tile and instance.right_tile.rotation == global.sub_deg(instance.rotation, 90)
 	
 	if incoming_back or (incoming_left == incoming_right):
 		turn_type = TurnType.STRAIGHT
 		return
 	
 	turn_type = TurnType.CCW if incoming_left else TurnType.CW
+
+func on_click() -> void:
+	if not instance: return
+	if instance.left_tile: prints(instance.position, "left:", instance.left_tile.position)
+	if instance.right_tile: prints(instance.position, "right:", instance.right_tile.position)

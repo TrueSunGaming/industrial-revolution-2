@@ -127,7 +127,7 @@ func sub_deg(a: float, b: float) -> float:
 	return clamp_deg(a - b)
 
 func center_rotation_displacement(rect: Rect2, deg: float) -> Vector2:
-	return rect.get_center().rotated(deg_to_rad(deg)) - rect.get_center()
+	return (rect.size / 2).rotated(deg_to_rad(deg)) - rect.size / 2
 
 func rotate_around(point: Vector2, center: Vector2, rad: float) -> Vector2:
 	return center + (point - center).rotated(rad)

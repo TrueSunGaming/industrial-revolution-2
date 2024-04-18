@@ -105,6 +105,7 @@ func render_tile(id: int) -> void:
 func handle_hover_click() -> void:
 	for i in hovered_tiles:
 		i.on_click()
+		i.click.emit()
 
 func handle_interact() -> void:
 	if hovered_tiles.size() > 0: handle_hover_click()
