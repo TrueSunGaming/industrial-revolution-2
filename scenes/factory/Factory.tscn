@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://scenes/elements/procedural_floor/ProceduralFloor.gd" id="3_wbm2x"]
 [ext_resource type="Script" path="res://scenes/factory/WorldContainer.gd" id="6_54qrb"]
 [ext_resource type="PackedScene" uid="uid://cad7nbn12k0bi" path="res://scenes/world/hub/hub.tscn" id="6_f3w6n"]
-[ext_resource type="Script" path="res://scenes/factory/tile_sys/PortalInstance.gd" id="6_tmnh7"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/tei/PortalInstance.gd" id="6_tmnh7"]
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/TileWorld.gd" id="7_d3m5u"]
-[ext_resource type="Script" path="res://scenes/factory/tile_sys/MachineInstance.gd" id="7_dmbtu"]
-[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityInstance.gd" id="9_hnu3i"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/tei/MachineInstance.gd" id="7_dmbtu"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/tei/TileEntityInstance.gd" id="9_hnu3i"]
 
 [sub_resource type="Resource" id="Resource_21rki"]
 script = ExtResource("6_tmnh7")

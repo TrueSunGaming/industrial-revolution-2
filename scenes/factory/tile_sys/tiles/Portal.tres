@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TileEntityData" load_steps=3 format=3 uid="uid://4uaak6v71hvo"]
 
 [ext_resource type="PackedScene" uid="uid://dx3c0pnmu1n7i" path="res://scenes/factory/tile_sys/tiles/PortalEntity.tscn" id="1_yivto"]
-[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityData.gd" id="2_ps6ig"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/data/TileEntityData.gd" id="2_ps6ig"]
 
 [resource]
 script = ExtResource("2_ps6ig")
