@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://bn8tvtrm1ctm"]
+[gd_scene load_steps=2 format=3 uid="uid://bn8tvtrm1ctm"]
+
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/tiles/belt/Belt.gd" id="1_w7yt1"]
 
 [node name="Belt" type="Node2D"]
+script = ExtResource("1_w7yt1")

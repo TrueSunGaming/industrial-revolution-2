@@ -27,10 +27,12 @@ var prev_rotation: float:
 	get:
 		return global.sub_deg(rotation, tile_data.rotation_step)
 
-var node_ref: Node2D:
+var node_ref: TileEntityNode:
 	set(val):
 		if val == node_ref: return
 		node_ref = val
+		
+		if val: val.instance = self
 		
 		on_node_ref_change()
 
@@ -79,6 +81,22 @@ var render_rect: Rect2:
 			rect.size * world.tile_size
 		)
 
+var forward_tile: TileEntityInstance:
+	get:
+		return get_tile_from_angle(rotation)
+
+var backward_tile: TileEntityInstance:
+	get:
+		return get_tile_from_angle(rotation + 180)
+
+var left_tile: TileEntityInstance:
+	get:
+		return get_tile_from_angle(rotation - 90)
+
+var right_tile: TileEntityInstance:
+	get:
+		return get_tile_from_angle(rotation + 90)
+
 func _init() -> void:
 	id = next_id
 	next_id += 1
@@ -120,6 +138,23 @@ func clear_node_ref() -> void:
 	
 	node_ref.queue_free()
 	node_ref = null
+
+func get_tile_from_offset(offset: Vector2) -> TileEntityInstance:
+	if not world: return null
+	
+	return world.tile_at(position + offset)
+
+func get_tile_from_angle(deg: float) -> TileEntityInstance:
+	var rad := deg_to_rad(deg)
+	var abs_sin: float = abs(sin(rad))
+	var abs_cos: float = abs(cos(rad))
+	
+	var rect := tile_data.placement_size
+	
+	# https://stackoverflow.com/questions/1343346/calculate-a-vector-from-the-center-of-a-square-to-edge-based-on-radius/1343531#1343531
+	var magnitude := rect.x / (2 * abs_cos) if rect.x * abs_sin <= rect.y * abs_cos else rect.y / (2 * abs_sin)
+	
+	return get_tile_from_offset(Vector2(magnitude, 0).rotated(rad))
 
 # template for inherited classes
 func on_tick(_delta: float) -> void:

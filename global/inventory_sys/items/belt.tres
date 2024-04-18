@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cmd350u0t41t7"]
+
+[ext_resource type="Script" path="res://global/inventory_sys/Item.gd" id="1_jmjpn"]
+[ext_resource type="Texture2D" uid="uid://ub8pkfhagyam" path="res://global/inventory_sys/items/belt_item.svg" id="2_fik47"]
+
+[resource]
+script = ExtResource("1_jmjpn")
+name = "Transport Belt I"
+description = "moves stuff"
+id = "belt_1"
+texture = ExtResource("2_fik47")
+type = 0
+tags = Array[String](["placeable", "tier1", "belt"])
+fuel_value = 0.0

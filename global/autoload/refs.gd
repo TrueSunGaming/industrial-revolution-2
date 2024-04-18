@@ -14,12 +14,14 @@ const preloaded = [
 	# TileEntityData
 	preload("res://scenes/factory/tile_sys/tiles/portal.tres"),
 	preload("res://scenes/factory/tile_sys/tiles/assembler_1.tres"),
+	preload("res://scenes/factory/tile_sys/tiles/belt/belt.tres"),
 	
 	# MachineData
 	preload("res://scenes/factory/tile_sys/tiles/assembler_1-machine.tres"),
 	
 	# Item
 	preload("res://global/inventory_sys/items/assembler_1.tres"),
+	preload("res://global/inventory_sys/items/belt.tres"),
 	
 	# Recipe
 	preload("res://global/inventory_sys/recipes/test.tres")

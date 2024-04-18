@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2khhtnvxyd7g"
-path="res://.godot/imported/belt_turn_cw.svg-6ed44e9369e62f44abcfbfd81b619e54.ctex"
+uid="uid://d2dmmimfm3pkq"
+path="res://.godot/imported/belt_straight.svg-45e470f455be5ca659ea0b1085e17d65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global/textures/belt_turn_cw.svg"
-dest_files=["res://.godot/imported/belt_turn_cw.svg-6ed44e9369e62f44abcfbfd81b619e54.ctex"]
+source_file="res://scenes/factory/tile_sys/tiles/belt/belt_straight.svg"
+dest_files=["res://.godot/imported/belt_straight.svg-45e470f455be5ca659ea0b1085e17d65.ctex"]
 
 [params]
 

@@ -3,6 +3,7 @@ class_name TileEntityInstanceFactory extends BaseFactory
 func _init() -> void:
 	register("portal", PortalInstance)
 	register("assembler_1", MachineInstance)
+	register("belt_1", TileEntityInstance)
 
 func generate(key: String) -> TileEntityInstance:
 	var instance: TileEntityInstance = super.generate(key).new()

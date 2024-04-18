@@ -1,13 +1,14 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://rf1yyrirl5y2"]
 
 [ext_resource type="Script" path="res://global/inventory_sys/Item.gd" id="1_w5bww"]
-[ext_resource type="Texture2D" uid="uid://bvgfdaaefu4yl" path="res://global/textures/assembler_item.svg" id="2_c0q0g"]
+[ext_resource type="Texture2D" uid="uid://bvgfdaaefu4yl" path="res://global/inventory_sys/items/assembler_1_item.svg" id="2_2052b"]
 
 [resource]
 script = ExtResource("1_w5bww")
 name = "Assembling Machine I"
-id = "assembler_1"
-texture = ExtResource("2_c0q0g")
 description = "TBA"
+id = "assembler_1"
+texture = ExtResource("2_2052b")
 type = 0
 tags = Array[String](["placeable", "machine", "assembler", "tier1"])
+fuel_value = 0.0

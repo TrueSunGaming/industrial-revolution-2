@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2dmmimfm3pkq"
-path="res://.godot/imported/belt_straight.svg-14034f7b47183840afcf7b3818958d11.ctex"
+uid="uid://bvgfdaaefu4yl"
+path="res://.godot/imported/assembler_1_item.svg-bb0140f4687cb02c0dea89f46d443401.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://global/textures/belt_straight.svg"
-dest_files=["res://.godot/imported/belt_straight.svg-14034f7b47183840afcf7b3818958d11.ctex"]
+source_file="res://global/inventory_sys/items/assembler_1_item.svg"
+dest_files=["res://.godot/imported/assembler_1_item.svg-bb0140f4687cb02c0dea89f46d443401.ctex"]
 
 [params]
 
@@ -32,6 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=2.0
+svg/scale=1.0
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false

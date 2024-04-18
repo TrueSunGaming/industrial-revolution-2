@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpyj0xe16iukk"]
+[gd_scene load_steps=4 format=3 uid="uid://bpyj0xe16iukk"]
 
-[ext_resource type="Texture2D" uid="uid://dpusqbm1k14qx" path="res://global/textures/assembler.svg" id="1_dltsi"]
+[ext_resource type="Script" path="res://scenes/factory/tile_sys/TileEntityNode.gd" id="1_5s8lp"]
+[ext_resource type="Texture2D" uid="uid://dpusqbm1k14qx" path="res://scenes/factory/tile_sys/tiles/assembler_1.svg" id="2_jtp0h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jnqyn"]
 size = Vector2(192, 192)
 
 [node name="Assembler1" type="Node2D"]
+script = ExtResource("1_5s8lp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_dltsi")
+texture = ExtResource("2_jtp0h")
 centered = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
