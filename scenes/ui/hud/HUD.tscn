@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://2cvxab220oy8"]
+[gd_scene load_steps=6 format=3 uid="uid://2cvxab220oy8"]
 
 [ext_resource type="Script" path="res://scenes/ui/hud/HUD.gd" id="1_0ppp0"]
 [ext_resource type="PackedScene" uid="uid://ds0pbn17gbev2" path="res://scenes/ui/hud/QuestHUD.tscn" id="2_wpqbp"]
 [ext_resource type="FontFile" uid="uid://dusslt718slnd" path="res://global/fonts/Roboto-Regular.ttf" id="3_0i2fq"]
 [ext_resource type="Script" path="res://scenes/ui/hud/FPS.gd" id="4_s5xof"]
+[ext_resource type="Script" path="res://scenes/ui/hud/Entities.gd" id="5_whpb0"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -32,3 +33,12 @@ offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("3_0i2fq")
 text = "FPS: 69"
 script = ExtResource("4_s5xof")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 55.0
+offset_bottom = 46.0
+theme_override_fonts/font = ExtResource("3_0i2fq")
+text = "Entities: 69"
+script = ExtResource("5_whpb0")
