@@ -8,9 +8,7 @@ var break_progress := 0.0
 
 var hovered_tiles: Array[TileEntityInstance]:
 	get:
-		return world.tiles.filter(func (v: TileEntityInstance):
-			return v.render_rect.has_point(get_local_mouse_position())
-		)
+		return world.tiles_at(world.world_to_tile(get_local_mouse_position()))
 
 var can_place: bool:
 	get:

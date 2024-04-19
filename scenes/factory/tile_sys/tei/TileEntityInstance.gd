@@ -43,13 +43,14 @@ var world: TileWorld:
 		if val == world: return
 		world = val
 		
+		if world and world.tick.is_connected(relay_tick): world.tick.disconnect(relay_tick)
+		
 		if val != null:
 			world_attached.emit(val)
 			world.tick.connect(relay_tick)
 			world.tile_render.emit(id)
 		else:
 			world_removed.emit()
-			if world.tick.is_connected(relay_tick): world.tick.disconnect(relay_tick)
 
 var tile_data: TileEntityData:
 	get:
@@ -146,7 +147,14 @@ func get_tile_from_offset(offset: Vector2) -> TileEntityInstance:
 	return world.tile_at(position + offset)
 
 func get_tile_from_angle(deg: float) -> TileEntityInstance:
-	var rad := deg_to_rad(deg)
+	var clamped := global.clamp_deg(deg)
+	
+	if clamped == 0: return get_tile_from_offset(Vector2(tile_data.placement_size.x, 0))
+	if clamped == 90: return get_tile_from_offset(Vector2(0, tile_data.placement_size.y))
+	if clamped == 180: return get_tile_from_offset(Vector2(-0.5, 0))
+	if clamped == 270: return get_tile_from_offset(Vector2(0, -0.5))
+	
+	var rad := deg_to_rad(clamped)
 	var abs_sin: float = abs(sin(rad))
 	var abs_cos: float = abs(cos(rad))
 	

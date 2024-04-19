@@ -28,10 +28,29 @@ enum PlaceStatus {
 		tiles = val
 
 var render_buffer: Array[int] = []
+var tile_cache := {}
 
 func _init() -> void:
 	tile_placed.connect(func (id: int, _idx: int):
 		tile_render.emit(id)
+		
+		var instance := TileEntityInstance.get_tile(id)
+		if not instance: return
+		
+		for x in range(instance.position.x, instance.position.x + instance.tile_data.placement_size.x):
+			for y in range(instance.position.y, instance.position.y + instance.tile_data.placement_size.y):
+				if not tile_cache.has(Vector2i(x, y)): tile_cache[Vector2i(x, y)] = []
+				tile_cache[Vector2i(x, y)].push_back(instance)
+	)
+	
+	tile_removed.connect(func (id: int):
+		var instance := TileEntityInstance.get_tile(id)
+		if not instance: return
+		
+		for x in range(instance.position.x, instance.position.x + instance.tile_data.placement_size.x):
+			for y in range(instance.position.y, instance.position.y + instance.tile_data.placement_size.y):
+				tile_cache[Vector2i(x, y)].erase(instance)
+				if tile_cache[Vector2i(x, y)].size() < 1: tile_cache.erase(Vector2i(x, y))
 	)
 	
 	tile_render.connect(func (id: int):
@@ -39,9 +58,9 @@ func _init() -> void:
 	)
 
 func place_tile(tile: TileEntityInstance) -> PlaceStatus:
-	if tiles.any(func (v: TileEntityInstance):
-		return v.placement_rect.intersects(tile.placement_rect)
-	): return PlaceStatus.ERROR_EXISTING_TILE
+	for x in range(tile.position.x, tile.position.x + tile.tile_data.placement_size.x):
+		for y in range(tile.position.y, tile.position.y + tile.tile_data.placement_size.y):
+			if tile_cache.has(Vector2i(x, y)): return PlaceStatus.ERROR_EXISTING_TILE
 	
 	tiles.push_back(tile)
 	tile.world = self
@@ -74,9 +93,19 @@ func place_held_item() -> PlaceStatus:
 	return PlaceStatus.OK
 
 func tile_at(tile: Vector2) -> TileEntityInstance:
-	var filtered := tiles.filter(func (v: TileEntityInstance): return v.placement_rect.has_point(tile))
+	var cached: Variant = tile_cache.get(Vector2i(tile.floor()))
+	if cached and cached.size() > 0: return cached[0]
 	
-	return filtered[0] if filtered.size() > 0 else null
+	return null
+
+func tiles_at(tile: Vector2) -> Array[TileEntityInstance]:
+	var cached: Variant = tile_cache.get(Vector2i(tile.floor()))
+	if not cached: return []
+	
+	var res: Array[TileEntityInstance] = []
+	for i in cached: res.push_back(i)
+	
+	return res
 
 func remove_tile_at(tile: Vector2, free_tile := false) -> TileEntityInstance:
 	var entity := tile_at(tile)
