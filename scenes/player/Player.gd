@@ -17,7 +17,7 @@ func next_frame_zoom(delta: float) -> Vector2:
 	
 	return Vector2(res, res)
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	velocity = Input.get_vector("left", "right", "up", "down") * movement_speed
 	
 	move_and_slide()
@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
 	
 	$Camera2D.zoom = next_frame_zoom(delta)
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if refs.ui.panel_visible:
 		if Input.is_action_just_pressed("inventory"):
 			for i in refs.ui.get_node("Panels").get_children(): i.queue_free()

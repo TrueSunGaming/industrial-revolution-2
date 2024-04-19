@@ -16,8 +16,8 @@ var tile_data: TileEntityData:
 	get:
 		return TileEntityData.get_tile_data(machine.machine_data.tile_id)
 
-func _process(delta: float) -> void:
-	progress_bar.value = 100 * machine.craft_progress / machine.recipe.craft_time if machine.recipe else 0
+func _process(_delta: float) -> void:
+	progress_bar.value = 100 * machine.craft_progress / machine.recipe.craft_time if machine.recipe else 0.0
 	recipe_display.recipe_id = machine.recipe_id
 	progress_bar.custom_minimum_size.x = progress_bar_container.size.x - recipe_display.size.x - 4
 	input_display.inventory = machine.input

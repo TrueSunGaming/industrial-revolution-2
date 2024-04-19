@@ -16,6 +16,6 @@ func _on_portal_mouse_entered() -> void:
 func _on_portal_mouse_exited() -> void:
 	hovered.erase(Hoverable.PORTAL)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global.show_hover_indicator(hovered.size() > 0 and hoverable_rects.has(hovered[0]))
 	if hovered.size() > 0: global.set_hover_indicator_rect(hoverable_rects.get(hovered[0]))

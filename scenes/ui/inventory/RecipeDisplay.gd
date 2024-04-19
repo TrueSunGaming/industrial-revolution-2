@@ -38,7 +38,7 @@ func open_selector() -> Variant:
 	
 	return result
 
-func _gui_input(event: InputEvent) -> void:
+func _gui_input(_event: InputEvent) -> void:
 	if not Input.is_action_just_released("interact"): return
 	clicked.emit()
 	

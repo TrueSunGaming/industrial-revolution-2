@@ -23,9 +23,9 @@ signal count_changed
 var item: Item:
 	get: return Item.get_item(item_id)
 
-func _init(item_id := "", count := 0) -> void:
-	self.item_id = item_id
-	self.count = count
+func _init(_item_id := "", _count := 0) -> void:
+	self.item_id = _item_id
+	self.count = _count
 
 func _to_string() -> String:
 	return item_id + " x" + str(count)

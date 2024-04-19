@@ -2,7 +2,7 @@ extends Node
 
 const alert_scene: PackedScene = preload("res://scenes/ui/dialog/Alert.tscn")
 const confirm_scene: PackedScene = preload("res://scenes/ui/dialog/Confirm.tscn")
-const white_blank32: CompressedTexture2D = preload("res://global/textures/blank32x32.png")
+const white_blank32: Image = preload("res://global/textures/blank32x32.png")
  
 class ConfirmResult extends RefCounted:
 	signal closed(result)
@@ -35,7 +35,7 @@ var item_on_mouse: ItemStack = null:
 
 var item_on_mouse_original_inventory: Inventory = null
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("test"):
 		confirm("TEST", "TEST")
 
@@ -176,7 +176,7 @@ func sort_children(parent: Node, sort_function: Callable) -> void:
 	for i in range(sorted.size()): parent.move_child(sorted[i], i)
 
 func create_blank_texture(size: Vector2i, color := Color(0, 0, 0, 0)) -> ImageTexture:
-	var img := Image.load_from_file("res://global/textures/blank32x32.png")
+	var img := white_blank32.duplicate()
 	img.convert(Image.FORMAT_RGBA8)
 	img.resize(size.x, size.y)
 	img.fill(color)

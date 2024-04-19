@@ -18,8 +18,8 @@ static var list := {}
 @export var tags: Array[String] = []
 @export var fuel_value: float
 
-static func get_item(id: String) -> Item:
-	return list.get(id)
+static func get_item(item_id: String) -> Item:
+	return list.get(item_id)
 
 func satisfies_selector(selector: String) -> bool:
 	var split := selector.split(";")
@@ -45,8 +45,8 @@ func satisfies_selector(selector: String) -> bool:
 	
 	return false
 
-static func id_satisfies_selector(id: String, selector: String) -> bool:
-	return get_item(id).satisfies_selector(selector)
+static func id_satisfies_selector(item_id: String, selector: String) -> bool:
+	return get_item(item_id).satisfies_selector(selector)
 
 static func all_valid_items(selector: String) -> Array[Item]:
 	var res: Array[Item] = []

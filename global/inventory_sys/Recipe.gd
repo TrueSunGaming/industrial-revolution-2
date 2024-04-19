@@ -29,8 +29,8 @@ var icon: Texture2D:
 	get:
 		return icon_override if icon_override else result[0].item.texture
 
-static func get_recipe(id: String) -> Recipe:
-	return list.get(id)
+static func get_recipe(recipe_id: String) -> Recipe:
+	return list.get(recipe_id)
 
 func satisfies_selector(selector: String) -> bool:
 	var split := selector.split(";")
@@ -52,8 +52,8 @@ func satisfies_selector(selector: String) -> bool:
 	
 	return false
 
-static func id_satisfies_selector(id: String, selector: String) -> bool:
-	return get_recipe(id).satisfies_selector(selector)
+static func id_satisfies_selector(recipe_id: String, selector: String) -> bool:
+	return get_recipe(recipe_id).satisfies_selector(selector)
 
 static func all_valid_recipes(selector: String) -> Array[Recipe]:
 	var res: Array[Recipe] = []

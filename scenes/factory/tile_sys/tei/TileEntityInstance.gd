@@ -104,8 +104,8 @@ func _init() -> void:
 	
 	list[id] = self
 
-static func get_tile(id: int) -> TileEntityInstance:
-	return list.get(id)
+static func get_tile(tile_id: int) -> TileEntityInstance:
+	return list.get(tile_id)
 
 func remove_from_world(free_tile := false) -> void:
 	if not world: return

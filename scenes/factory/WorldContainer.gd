@@ -61,7 +61,7 @@ func process_tick(ticks: float) -> void:
 		refs.player.inventory.add_item(ItemStack.new(tile.tile_data.item_id, 1))
 		tile.remove_from_world(true)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	check_tick()
 	
 	for i in world.render_buffer: render_tile(i)
@@ -139,7 +139,7 @@ func check_pipette() -> void:
 	if refs.factory.disabled: return
 	if Input.is_action_just_pressed("pipette"): handle_pipette()
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if refs.ui.panel_visible: return
 	if refs.factory.disabled: return
 	

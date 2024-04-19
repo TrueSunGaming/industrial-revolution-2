@@ -19,5 +19,5 @@ var breakable: bool:
 	get:
 		return break_time >= 0
 
-static func get_tile_data(id: String) -> TileEntityData:
-	return list.get(id)
+static func get_tile_data(tile_id: String) -> TileEntityData:
+	return list.get(tile_id)

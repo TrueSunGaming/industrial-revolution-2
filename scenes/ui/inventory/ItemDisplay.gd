@@ -40,10 +40,10 @@ var hsva_modulate: Vector4:
 		if not stack: return Vector4(1, 1, 2, 1)
 		return Vector4(1, 1, 1.3, 1)
 
-func _init(stack: ItemStack = null, inventory: Inventory = null, config := ItemDisplayConfig.new()) -> void:
-	self.stack = stack
-	self.inventory = inventory
-	self.config = config
+func _init(_stack: ItemStack = null, _inventory: Inventory = null, _config := ItemDisplayConfig.new()) -> void:
+	self.stack = _stack
+	self.inventory = _inventory
+	self.config = _config
 
 func apply_config() -> void:
 	pickable = config.pickable
@@ -62,7 +62,7 @@ func update() -> void:
 	tooltip_text = str(stack) if stack else "Empty slot"
 	if count_label: count_label.text = str(stack.count) if stack else ""
 
-func _gui_input(event: InputEvent) -> void:
+func _gui_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("pick_half"):
 		if Input.is_physical_key_pressed(KEY_SHIFT):
 			return quick_transfer(Input.is_action_just_pressed("pick_half"))
@@ -123,5 +123,5 @@ func update_hover_effect() -> void:
 	
 	material.set_shader_parameter("modulate", hsva_modulate)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	update_hover_effect()
