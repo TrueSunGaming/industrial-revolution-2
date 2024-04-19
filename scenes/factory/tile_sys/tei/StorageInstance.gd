@@ -2,8 +2,11 @@ class_name StorageInstance extends ContainerEntityInstance
 
 @export var inventory: Inventory
 
-func add_item(item: ItemStack) -> int:
-	return inventory.add_item(item)
+func get_input() -> Inventory:
+	return inventory
 
-func remove_item(item: ItemStack) -> bool:
-	return inventory.take_item(item)
+func get_output() -> Inventory:
+	return inventory
+
+func get_primary_inventory() -> Inventory:
+	return inventory
