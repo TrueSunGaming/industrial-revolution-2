@@ -53,7 +53,7 @@ func sort() -> void:
 			sort_with_function(func (a: ItemDisplay, b: ItemDisplay):
 				if not a.stack: return false
 				if not b.stack: return true
-				return b.stack.count > a.stack.count
+				return b.stack.count < a.stack.count
 			)
 
 func fill_empty() -> void:
