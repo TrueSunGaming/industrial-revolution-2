@@ -108,7 +108,14 @@ func _init() -> void:
 static func get_tile(tile_id: int) -> TileEntityInstance:
 	return list.get(tile_id)
 
+func remove() -> void:
+	remove_from_world()
+	
+	list.erase(id)
+
 func remove_from_world(free_tile := false) -> void:
+	if free_tile: return remove()
+	
 	if not world: return
 	
 	var idx := -1
@@ -123,9 +130,6 @@ func remove_from_world(free_tile := false) -> void:
 	world.tiles.remove_at(idx)
 	world.tile_removed.emit(id)
 	clear_node_ref()
-	
-	if free_tile:
-		list.erase(id)
 
 func relay_tick(delta: float) -> void:
 	world_tick.emit(delta)

@@ -32,8 +32,13 @@ func update_data_node() -> void:
 	
 	add_child(scene.instantiate())
 
-func on_instance_ready() -> void:
+func on_instance_ready(old_instance: TileEntityInstance) -> void:
+	if old_instance and old_instance.world_tick.is_connected(update_turn_type): 
+		old_instance.world_tick.disconnect(update_turn_type)
+	
 	instance.world_tick.connect(update_turn_type)
+	
+	update_turn_type(0)
 
 func update_turn_type(_delta: float) -> void:
 	if not instance:

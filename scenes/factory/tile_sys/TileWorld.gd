@@ -30,6 +30,15 @@ enum PlaceStatus {
 var render_buffer: Array[int] = []
 var tile_cache := {}
 
+var can_place_held_item: PlaceStatus:
+	get:
+		if not global.item_on_mouse: return PlaceStatus.ERROR_NOT_FOUND
+		
+		return can_place_tile_id(
+			global.item_on_mouse.item_id,
+			world_to_tile(refs.world_container.get_local_mouse_position()).floor()
+		)
+
 func _init() -> void:
 	tile_placed.connect(func (id: int, _idx: int):
 		tile_render.emit(id)
@@ -57,10 +66,16 @@ func _init() -> void:
 		render_buffer.push_back(id)
 	)
 
-func place_tile(tile: TileEntityInstance) -> PlaceStatus:
+func can_place_tile(tile: TileEntityInstance) -> PlaceStatus:
 	for x in range(tile.position.x, tile.position.x + tile.tile_data.placement_size.x):
 		for y in range(tile.position.y, tile.position.y + tile.tile_data.placement_size.y):
 			if tile_cache.has(Vector2i(x, y)): return PlaceStatus.ERROR_EXISTING_TILE
+	
+	return PlaceStatus.OK
+
+func place_tile(tile: TileEntityInstance) -> PlaceStatus:
+	var can_place := can_place_tile(tile)
+	if can_place != PlaceStatus.OK: return can_place
 	
 	tiles.push_back(tile)
 	tile.world = self
@@ -69,6 +84,15 @@ func place_tile(tile: TileEntityInstance) -> PlaceStatus:
 	
 	return PlaceStatus.OK
 
+func can_place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> PlaceStatus:
+	var instance := tei_factory.generate_positioned(item_id, position, rotation)
+	if not instance: return PlaceStatus.ERROR_NOT_FOUND
+	
+	var can_place := can_place_tile(instance)
+	instance.remove()
+	
+	return can_place
+
 func place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> PlaceStatus:
 	var instance := tei_factory.generate_positioned(item_id, position, rotation)
 	if not instance: return PlaceStatus.ERROR_NOT_FOUND
@@ -76,7 +100,8 @@ func place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> Place
 	return place_tile(instance)
 
 func place_held_item() -> PlaceStatus:
-	if not global.item_on_mouse: return PlaceStatus.ERROR_NOT_FOUND
+	var can_place := can_place_held_item
+	if can_place != PlaceStatus.OK: return can_place
 	
 	var status := place_tile_id(
 		global.item_on_mouse.item_id,

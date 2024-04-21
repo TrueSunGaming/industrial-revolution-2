@@ -6,6 +6,7 @@ enum Type {
 }
 
 static var list := {}
+static var tile_list := {}
 
 @export var name: String
 @export_multiline var description: String
@@ -17,6 +18,10 @@ static var list := {}
 @export var type: Type
 @export var tags: Array[String] = []
 @export var fuel_value: float
+
+var tile: TileEntityData:
+	get:
+		return tile_list.get(id)
 
 static func get_item(item_id: String) -> Item:
 	return list.get(item_id)

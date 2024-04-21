@@ -84,19 +84,29 @@ func should_free_tile_node(instance: TileEntityInstance) -> bool:
 	
 	return instance.node_ref.get_parent() == self
 
-func render_tile(id: int) -> void:
-	var instance := TileEntityInstance.get_tile(id)
-	if not instance: return
+func create_tile_node(instance: TileEntityInstance) -> TileEntityNode:
+	if should_free_tile_node(instance):
+		instance.clear_node_ref()
+		return null
 	
-	if should_free_tile_node(instance): return instance.clear_node_ref()
-	if instance.node_ref: return
+	if instance.node_ref: return null
 	
 	var data := TileEntityData.get_tile_data(instance.data_id)
-	if not data: return printerr("No TileEntityData found with ID: " + instance.data_id)
+	if not data:
+		printerr("No TileEntityData found with ID: " + instance.data_id)
+		return null
 	
 	instance.node_ref = data.scene.instantiate()
 	instance.node_ref.position = instance.render_position
 	instance.node_ref.rotation_degrees = instance.rotation
+	
+	return instance.node_ref
+
+func render_tile(id: int) -> void:
+	var instance := TileEntityInstance.get_tile(id)
+	if not instance: return
+	
+	if not create_tile_node(instance): return
 	
 	add_child(instance.node_ref)
 

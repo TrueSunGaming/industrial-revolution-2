@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dad0j2627f8ti"]
+[gd_scene load_steps=18 format=3 uid="uid://dad0j2627f8ti"]
 
 [ext_resource type="Script" path="res://scenes/factory/Factory.gd" id="1_x1roo"]
 [ext_resource type="Texture2D" uid="uid://cudg5hxs6gg0t" path="res://global/textures/metal_tile.svg" id="2_whtw3"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/TileWorld.gd" id="7_d3m5u"]
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/tei/MachineInstance.gd" id="7_dmbtu"]
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/tei/TileEntityInstance.gd" id="9_hnu3i"]
+[ext_resource type="PackedScene" uid="uid://cv1ejjxv46g2r" path="res://scenes/elements/placement_preview/PlacementPreview.tscn" id="10_8mxeu"]
 
 [sub_resource type="Resource" id="Resource_21rki"]
 script = ExtResource("6_tmnh7")
@@ -48,6 +49,9 @@ script = ExtResource("7_d3m5u")
 tile_size = Vector2(64, 64)
 tiles = Array[ExtResource("9_hnu3i")]([SubResource("Resource_21rki"), SubResource("Resource_x7dio"), SubResource("Resource_refq6"), SubResource("Resource_cxe0y"), SubResource("Resource_dstql")])
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_px2y5"]
+viewport_path = NodePath("PlacementViewport")
+
 [node name="Factory" type="Node2D"]
 script = ExtResource("1_x1roo")
 
@@ -60,3 +64,8 @@ tile_offset = Vector2(32, 32)
 script = ExtResource("6_54qrb")
 world = SubResource("Resource_8a7mi")
 tick_rate = 60
+
+[node name="PlacementPreview" parent="." instance=ExtResource("10_8mxeu")]
+texture = SubResource("ViewportTexture_px2y5")
+color_normal = Color(1, 1, 1, 0.501961)
+color_error = Color(1, 0, 0, 0.501961)

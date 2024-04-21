@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv1ejjxv46g2r"]
+
+[ext_resource type="Script" path="res://scenes/elements/placement_preview/PlacementPreview.gd" id="1_sc2i6"]
+[ext_resource type="Script" path="res://scenes/elements/placement_preview/PlacementViewport.gd" id="1_vul6n"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ungs0"]
+viewport_path = NodePath("PlacementViewport")
+
+[node name="PlacementPreview" type="Sprite2D"]
+texture = SubResource("ViewportTexture_ungs0")
+centered = false
+script = ExtResource("1_sc2i6")
+
+[node name="PlacementViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+script = ExtResource("1_vul6n")
