@@ -7,11 +7,11 @@ enum TurnType {
 	CCW
 }
 
-const scenes := {
+const textures := {
 	TurnType.UNSET: null,
-	TurnType.STRAIGHT: preload("res://scenes/factory/tile_sys/tiles/belt/BeltStraight.tscn"),
-	TurnType.CW: preload("res://scenes/factory/tile_sys/tiles/belt/BeltTurnCW.tscn"),
-	TurnType.CCW: preload("res://scenes/factory/tile_sys/tiles/belt/BeltTurnCCW.tscn")
+	TurnType.STRAIGHT: preload("res://scenes/factory/tile_sys/tiles/belt/belt_straight.svg"),
+	TurnType.CW: preload("res://scenes/factory/tile_sys/tiles/belt/belt_turn_cw.svg"),
+	TurnType.CCW: preload("res://scenes/factory/tile_sys/tiles/belt/belt_turn_ccw.svg")
 }
 
 @export var turn_type: TurnType:
@@ -21,16 +21,12 @@ const scenes := {
 		
 		update_data_node()
 
-var scene: PackedScene:
+var texture: CompressedTexture2D:
 	get:
-		return scenes[turn_type]
+		return textures[turn_type]
 
 func update_data_node() -> void:
-	if has_node("BeltData"): $BeltData.queue_free()
-	
-	if not scene: return
-	
-	add_child(scene.instantiate())
+	$Sprite2D.texture = texture
 
 func on_instance_ready(old_instance: TileEntityInstance) -> void:
 	if old_instance and old_instance.world_tick.is_connected(update_turn_type): 
