@@ -15,11 +15,11 @@ enum PlaceStatus {
 	ERROR_PLAYER
 }
 
-@export var tile_size: Vector2
+@export var tile_size: Vector2i
 
 @export var tiles: Array[TileEntityInstance]:
 	set(val):
-		for i in range(val.size()):
+		for i in val.size():
 			if tiles.any(func (v: TileEntityInstance): return v.id == val[i].id): continue
 			
 			tile_placed.emit(val[i].id, i)
@@ -36,7 +36,7 @@ var can_place_held_item: PlaceStatus:
 		
 		return can_place_tile_id(
 			global.item_on_mouse.item_id,
-			world_to_tile(refs.world_container.get_local_mouse_position()).floor()
+			world_to_tile(refs.world_container.get_local_mouse_position())
 		)
 
 func _init() -> void:
@@ -84,7 +84,7 @@ func place_tile(tile: TileEntityInstance) -> PlaceStatus:
 	
 	return PlaceStatus.OK
 
-func can_place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> PlaceStatus:
+func can_place_tile_id(item_id: String, position: Vector2i, rotation := 0.0) -> PlaceStatus:
 	var instance := tei_factory.generate_positioned(item_id, position, rotation)
 	if not instance: return PlaceStatus.ERROR_NOT_FOUND
 	
@@ -93,7 +93,7 @@ func can_place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> P
 	
 	return can_place
 
-func place_tile_id(item_id: String, position: Vector2, rotation := 0.0) -> PlaceStatus:
+func place_tile_id(item_id: String, position: Vector2i, rotation := 0.0) -> PlaceStatus:
 	var instance := tei_factory.generate_positioned(item_id, position, rotation)
 	if not instance: return PlaceStatus.ERROR_NOT_FOUND
 	
@@ -105,7 +105,7 @@ func place_held_item() -> PlaceStatus:
 	
 	var status := place_tile_id(
 		global.item_on_mouse.item_id,
-		world_to_tile(refs.world_container.get_local_mouse_position()).floor()
+		world_to_tile(refs.world_container.get_local_mouse_position())
 	)
 	
 	if status != PlaceStatus.OK: return status
@@ -117,14 +117,14 @@ func place_held_item() -> PlaceStatus:
 	
 	return PlaceStatus.OK
 
-func tile_at(tile: Vector2) -> TileEntityInstance:
-	var cached: Variant = tile_cache.get(Vector2i(tile.floor()))
+func tile_at(tile: Vector2i) -> TileEntityInstance:
+	var cached: Variant = tile_cache.get(tile)
 	if cached and cached.size() > 0: return cached[0]
 	
 	return null
 
-func tiles_at(tile: Vector2) -> Array[TileEntityInstance]:
-	var cached: Variant = tile_cache.get(Vector2i(tile.floor()))
+func tiles_at(tile: Vector2i) -> Array[TileEntityInstance]:
+	var cached: Variant = tile_cache.get(tile)
 	if not cached: return []
 	
 	var res: Array[TileEntityInstance] = []
@@ -132,7 +132,7 @@ func tiles_at(tile: Vector2) -> Array[TileEntityInstance]:
 	
 	return res
 
-func remove_tile_at(tile: Vector2, free_tile := false) -> TileEntityInstance:
+func remove_tile_at(tile: Vector2i, free_tile := false) -> TileEntityInstance:
 	var entity := tile_at(tile)
 	if not entity: return null
 	
@@ -143,8 +143,8 @@ func remove_tile_at(tile: Vector2, free_tile := false) -> TileEntityInstance:
 func process_tick(delta: float) -> void:
 	tick.emit(delta)
 
-func tile_to_world(tile: Vector2) -> Vector2:
+func tile_to_world(tile: Vector2i) -> Vector2:
 	return tile * tile_size - tile_size / 2
 
-func world_to_tile(world: Vector2) -> Vector2:
-	return world / tile_size + Vector2(0.5, 0.5)
+func world_to_tile(world: Vector2) -> Vector2i:
+	return Vector2i((world / Vector2(tile_size) + Vector2(0.5, 0.5)).floor())

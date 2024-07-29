@@ -8,6 +8,7 @@ var main: Main
 var factory: Factory
 var world_container: WorldContainer
 var hover_indicator: HoverIndicator
+var belt_paths: BeltPaths
 var blank_texture := global.create_blank_texture(Vector2i(32, 32), Color("#242424"))
 
 const preloaded = [

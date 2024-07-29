@@ -8,7 +8,7 @@ const inventory_scene: PackedScene = preload("res://scenes/ui/inventory/player/P
 @export var zoom_ratio: float
 @export_range(0, 1) var zoom_smoothing: float
 
-var inventory := Inventory.new()
+@export var inventory := Inventory.new()
 
 @onready var goal_zoom := float($Camera2D.zoom.x)
 

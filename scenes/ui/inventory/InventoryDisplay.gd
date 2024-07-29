@@ -38,7 +38,7 @@ func sort_with_function(sort_function: Callable) -> void:
 	var sorted := get_children().filter(func (v: ItemDisplay): return global.to_bool(v.stack))
 	sorted.sort_custom(sort_function)
 	
-	for i in range(sorted.size()): move_child(sorted[i], i)
+	for i in sorted.size(): move_child(sorted[i], i)
 
 func sort() -> void:
 	match config.sort_mode:
@@ -61,14 +61,14 @@ func fill_empty() -> void:
 	var expected_children := expected_rows * columns
 	
 	if get_child_count() > expected_children:
-		for i in range(get_child_count() - expected_children):
+		for i in get_child_count() - expected_children:
 			var child: ItemDisplay = get_child(-1)
 			remove_child(child)
 			child.queue_free()
 		
 		return
 	
-	for i in range(expected_children - get_child_count()):
+	for i in expected_children - get_child_count():
 		var blank := ItemDisplay.new(null, inventory, config)
 		add_child(blank)
 

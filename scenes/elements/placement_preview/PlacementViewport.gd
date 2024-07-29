@@ -6,7 +6,7 @@ var tile_instance_id := -1
 
 var new_position: Vector2:
 	get:
-		return refs.world_container.world.world_to_tile(refs.world_container.get_local_mouse_position()).floor()
+		return refs.world_container.world.world_to_tile(refs.world_container.get_local_mouse_position())
 
 var should_rerender: bool:
 	get:

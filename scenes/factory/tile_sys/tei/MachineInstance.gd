@@ -41,7 +41,7 @@ func on_tick(delta: float) -> void:
 	craft_progress += delta
 	
 	if craft_progress >= recipe.craft_time:
-		for i in range(floor(craft_progress / recipe.craft_time)): craft()
+		for i in floor(craft_progress / recipe.craft_time): craft()
 	
 	craft_progress = fmod(craft_progress, recipe.craft_time)
 

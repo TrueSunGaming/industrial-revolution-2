@@ -118,7 +118,7 @@ func set_background_sound_bus(bus: String) -> void:
 	refs.main.get_node("AudioStreamPlayer").bus = bus
 
 func clamp_deg(val: float) -> float:
-	return fmod(val, 360) if val >= 0 else 360 + fmod(val, 360)
+	return fmod(val, 360) + (360 if val > 0 else 0)
 
 func add_deg(a: float, b: float) -> float:
 	return clamp_deg(a + b)
@@ -173,7 +173,7 @@ func sort_children(parent: Node, sort_function: Callable) -> void:
 	var sorted := parent.get_children()
 	sorted.sort_custom(sort_function)
 	
-	for i in range(sorted.size()): parent.move_child(sorted[i], i)
+	for i in sorted.size(): parent.move_child(sorted[i], i)
 
 func create_blank_texture(size: Vector2i, color := Color(0, 0, 0, 0)) -> ImageTexture:
 	var img := white_blank32.duplicate()

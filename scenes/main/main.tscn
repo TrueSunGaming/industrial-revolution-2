@@ -1,11 +1,27 @@
-[gd_scene load_steps=7 format=3 uid="uid://1iwpgmnixaco"]
+[gd_scene load_steps=12 format=3 uid="uid://1iwpgmnixaco"]
 
 [ext_resource type="Script" path="res://scenes/main/Main.gd" id="1_a7d2v"]
 [ext_resource type="PackedScene" uid="uid://dad0j2627f8ti" path="res://scenes/factory/Factory.tscn" id="1_p0vk0"]
 [ext_resource type="PackedScene" uid="uid://cy5ii5asdf0sd" path="res://scenes/player/Player.tscn" id="3_cbato"]
 [ext_resource type="PackedScene" uid="uid://buai8d8hvtj3i" path="res://scenes/elements/hover_indicator/HoverIndicator.tscn" id="4_7hnki"]
+[ext_resource type="Script" path="res://global/inventory_sys/ItemStack.gd" id="4_benmr"]
 [ext_resource type="PackedScene" uid="uid://cp2b6nwd32ctl" path="res://scenes/ui/UI.tscn" id="4_t77ak"]
+[ext_resource type="Script" path="res://global/inventory_sys/Inventory.gd" id="5_4dvov"]
 [ext_resource type="AudioStream" uid="uid://m84loikx68oo" path="res://global/sound/bg/wind.wav" id="5_d461e"]
+[ext_resource type="Texture2D" uid="uid://dxi5lryfh4c5d" path="res://scenes/ui/close.svg" id="7_nfedh"]
+
+[sub_resource type="Resource" id="Resource_7tfmy"]
+script = ExtResource("4_benmr")
+item_id = "assembler_1"
+count = 1
+
+[sub_resource type="Resource" id="Resource_d5fpa"]
+script = ExtResource("5_4dvov")
+items = Array[ExtResource("4_benmr")]([SubResource("Resource_7tfmy")])
+whitelist = Array[String]([])
+blacklist = Array[String]([])
+limits = Array[ExtResource("4_benmr")]([])
+allow = 0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_a7d2v")
@@ -18,6 +34,7 @@ script = ExtResource("1_a7d2v")
 movement_speed = 500
 zoom_ratio = 1.15
 zoom_smoothing = 0.8
+inventory = SubResource("Resource_d5fpa")
 
 [node name="HoverIndicatorContainer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -29,3 +46,7 @@ follow_viewport_enabled = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_d461e")
 autoplay = true
+
+[node name="Close" type="Sprite2D" parent="."]
+scale = Vector2(5, 5)
+texture = ExtResource("7_nfedh")

@@ -9,7 +9,7 @@ static var next_id := 0
 static var list := {}
 
 @export var data_id: String
-@export var position: Vector2:
+@export var position: Vector2i:
 	set(val):
 		position = val
 		update_position()
@@ -68,19 +68,22 @@ var index: int:
 
 var render_position: Vector2:
 	get:
-		if not world: return Vector2()
-		
-		return world.tile_to_world(position - global.center_rotation_displacement(placement_rect, rotation))
+		return render_rect.position
 
 var render_rect: Rect2:
 	get:
 		if not world: return Rect2()
 		
-		var rect := global.rotated_bounding_box(placement_rect, rotation)
+		var rect := Rect2(
+			world.tile_to_world(position),
+			tile_data.placement_size * Vector2(world.tile_size)
+		)
+		
+		var size := global.rotated_bounding_box(rect, rotation).size
 		
 		return Rect2(
-			world.tile_to_world(rect.position),
-			rect.size * world.tile_size
+			rect.position - global.center_rotation_displacement(rect, rotation),
+			size
 		)
 
 var forward_tile: TileEntityInstance:
@@ -145,7 +148,7 @@ func clear_node_ref() -> void:
 	node_ref.queue_free()
 	node_ref = null
 
-func get_tile_from_offset(offset: Vector2) -> TileEntityInstance:
+func get_tile_from_offset(offset: Vector2i) -> TileEntityInstance:
 	if not world: return null
 	
 	return world.tile_at(position + offset)
@@ -168,9 +171,9 @@ func get_tile_from_angle(deg: float) -> TileEntityInstance:
 	var magnitude := rect.x / (2 * abs_cos) if rect.x * abs_sin <= rect.y * abs_cos else rect.y / (2 * abs_sin)
 	
 	# multiplying by 1.00001 to fix border problems
-	var pos := position + rect / 2 + Vector2(magnitude * 1.00001, 0).rotated(rad)
+	var pos := Vector2(position) + rect / 2 + Vector2(magnitude * 1.00001, 0).rotated(rad)
 	
-	return get_tile_from_offset(pos - position)
+	return get_tile_from_offset(Vector2i(pos) - position)
 
 func on_tick(_delta: float) -> void:
 	pass

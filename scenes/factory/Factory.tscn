@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dad0j2627f8ti"]
+[gd_scene load_steps=19 format=3 uid="uid://dad0j2627f8ti"]
 
 [ext_resource type="Script" path="res://scenes/factory/Factory.gd" id="1_x1roo"]
 [ext_resource type="Texture2D" uid="uid://cudg5hxs6gg0t" path="res://global/textures/metal_tile.svg" id="2_whtw3"]
@@ -10,43 +10,44 @@
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/tei/MachineInstance.gd" id="7_dmbtu"]
 [ext_resource type="Script" path="res://scenes/factory/tile_sys/tei/TileEntityInstance.gd" id="9_hnu3i"]
 [ext_resource type="PackedScene" uid="uid://cv1ejjxv46g2r" path="res://scenes/elements/placement_preview/PlacementPreview.tscn" id="10_8mxeu"]
+[ext_resource type="Script" path="res://scenes/factory/BeltPaths.gd" id="11_rx8n0"]
 
 [sub_resource type="Resource" id="Resource_21rki"]
 script = ExtResource("6_tmnh7")
 destination = ExtResource("6_f3w6n")
 destination_name = "Hub"
 data_id = "portal"
-position = Vector2(-2, -2)
+position = Vector2i(0, 0)
 rotation = 0.0
 
 [sub_resource type="Resource" id="Resource_x7dio"]
 script = ExtResource("7_dmbtu")
 recipe_id = ""
 data_id = "assembler_1"
-position = Vector2(5, -1)
+position = Vector2i(0, 0)
 rotation = 0.0
 
 [sub_resource type="Resource" id="Resource_refq6"]
 script = ExtResource("9_hnu3i")
 data_id = "belt_1"
-position = Vector2(5, 5)
+position = Vector2i(0, 0)
 rotation = 90.0
 
 [sub_resource type="Resource" id="Resource_cxe0y"]
 script = ExtResource("9_hnu3i")
 data_id = "belt_1"
-position = Vector2(5, 7)
+position = Vector2i(0, 0)
 rotation = -90.0
 
 [sub_resource type="Resource" id="Resource_dstql"]
 script = ExtResource("9_hnu3i")
 data_id = "belt_1"
-position = Vector2(5, 6)
+position = Vector2i(0, 5)
 rotation = 0.0
 
 [sub_resource type="Resource" id="Resource_8a7mi"]
 script = ExtResource("7_d3m5u")
-tile_size = Vector2(64, 64)
+tile_size = Vector2i(64, 64)
 tiles = Array[ExtResource("9_hnu3i")]([SubResource("Resource_21rki"), SubResource("Resource_x7dio"), SubResource("Resource_refq6"), SubResource("Resource_cxe0y"), SubResource("Resource_dstql")])
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_px2y5"]
@@ -69,3 +70,6 @@ tick_rate = 60
 texture = SubResource("ViewportTexture_px2y5")
 color_normal = Color(1, 1, 1, 0.501961)
 color_error = Color(1, 0, 0, 0.501961)
+
+[node name="BeltPaths" type="Node2D" parent="."]
+script = ExtResource("11_rx8n0")

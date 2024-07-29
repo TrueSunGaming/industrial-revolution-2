@@ -54,3 +54,22 @@ func update_turn_type(_delta: float) -> void:
 		return
 	
 	turn_type = TurnType.CCW if incoming_left else TurnType.CW
+
+static func generate_turn_types(positions: Array[Vector2i], rotations: Array[float]) -> Array[TurnType]:
+	assert(positions.size() == rotations.size(), "Position and rotation arrays must match in length.")
+	if positions.size() == 0: return []
+	if positions.size() == 1: return [TurnType.STRAIGHT]
+	
+	var res: Array[TurnType] = []
+	var last_dir := rotations[0]
+	
+	for i in positions.size() - 1:
+		var clamped := global.clamp_deg(rotations[i])
+		
+		if clamped == last_dir: res.push_back(TurnType.STRAIGHT)
+		if clamped == global.add_deg(last_dir, 90): res.push_back(TurnType.CW)
+		if clamped == global.sub_deg(last_dir, 90): res.push_back(TurnType.CCW)
+		
+		last_dir = clamped
+	
+	return res
